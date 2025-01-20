@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Registration</title>
+    <style>
+        /* Add some basic styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        label {
+            font-size: 14px;
+            color: #555;
+        }
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .form-control:focus {
+            outline: none;
+            border-color: #4CAF50;
+        }
+        .btn-submit {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+        .btn-submit:hover {
+            background-color: #45a049;
+        }
+        .error-message {
+            color: red;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>User Registration</h2>
+
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <!-- Username Field -->
+            <label for="id_username">Username:</label>
+            <input type="text" id="id_username" name="username" class="form-control" value="{{ det.username.value|default:'' }}">
+            {% if messages %}
+                {% for message in messages %}
+                    <p class="error">{{ message }}</p>
+                {% endfor %}
+        {% endif %}
+
+            <!-- Password Field -->
+            <label for="id_password">Password:</label>
+            <input type="password" id="id_password" name="password" class="form-control">
+            {% if det.password.errors %}
+                <div class="error-message">
+                    {% for error in det.password.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+
+            <label for="id_email">Email:</label>
+            <input type="email" id="id_email" name="email" class="form-control" required value="{{ det.email.value|default:'' }}">
+            {% if det.email.errors %}
+                <div class="error-message">
+                    {% for error in det.email.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <!-- Name Field -->
+            <label for="id_name">Name:</label>
+            <input type="text" id="id_name" name="name" class="form-control" value="{{ det.name.value|default:'' }}">
+            {% if det.name.errors %}
+                <div class="error-message">
+                    {% for error in det.name.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <!-- Date of Birth Field -->
+            <label for="id_dob">Date of Birth:</label>
+            <input type="date" id="id_dob" name="dob" class="form-control" value="{{ det.dob.value|default:'' }}">
+            {% if det.dob.errors %}
+                <div class="error-message">
+                    {% for error in det.dob.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <!-- Gender Field -->
+            <label for="id_gender">Gender:</label>
+            <select id="id_gender" name="gender" class="form-control">
+                <option value="" disabled selected>Select Gender</option>
+                <option value="MALE" {% if det.gender.value == "MALE" %}selected{% endif %}>Male</option>
+                <option value="FEMALE" {% if det.gender.value == "FEMALE" %}selected{% endif %}>Female</option>
+            </select>
+            {% if det.gender.errors %}
+                <div class="error-message">
+                    {% for error in det.gender.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <!-- Phone Field -->
+            <label for="id_phone">Phone:</label>
+            <input type="number" id="id_phone" name="phone" class="form-control" value="{{ det.phone.value|default:'' }}">
+            {% if det.phone.errors %}
+                <div class="error-message">
+                    {% for error in det.phone.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <!-- Address Field -->
+            <label for="id_address">Address:</label>
+            <textarea id="id_address" name="address" class="form-control">{{ det.address.value|default:'' }}</textarea>
+            {% if det.address.errors %}
+                <div class="error-message">
+                    {% for error in det.address.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <!-- ID Proof Field -->
+            <label for="id_id_proof">ID Proof:</label>
+            <input type="file" id="id_id_proof" name="id_proof" class="form-control">
+            {% if det.id_proof.errors %}
+                <div class="error-message">
+                    {% for error in det.id_proof.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn-submit">Register</button>
+        </form>
+    </div>
+</body>
+</html>

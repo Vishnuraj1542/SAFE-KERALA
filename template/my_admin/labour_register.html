@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Labour Registration</title>
+</head>
+<body>
+    <div class="container">
+        <h2>Labour Registration Form</h2>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label for="id_username">User Name:</label>
+                <input type="text" id="id_name" name="username" class="form-control" value="{{ form.username }}">
+                {% if msg %}
+                <p>{{msg}}</p>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <label for="id_name">password:</label>
+                <input type="password" id="id_name" name="password" class="form-control" value="{{ form.password }}">
+            </div>
+            <div class="form-group">
+                <label for="id_name">Email:</label>
+                <input type="email" id="id_name" name="email" class="form-control" value="{{ form.email }}">
+            </div>
+
+            <div class="form-group">
+                <label for="id_name">Name:</label>
+                <input type="text" id="id_name" name="name" class="form-control" value="{{ form.name }}">
+            </div>
+
+            <!-- Age -->
+            <div class="form-group">
+                <label for="id_age">Age:</label>
+                <input type="number" id="id_age" name="age" class="form-control" value="{{ form.age.value }}">
+            </div>
+
+            <!-- Gender -->
+            <div class="form-group">
+                <label for="id_gender">Gender:</label>
+                <select id="id_gender" name="gender" class="form-control">
+                    <option value="MALE" {% if form.gender.value == 'MALE' %}selected{% endif %}>Male</option>
+                    <option value="FEMALE" {% if form.gender.value == 'FEMALE' %}selected{% endif %}>Female</option>
+                    <option value="OTHER" {% if form.gender.value == 'OTHER' %}selected{% endif %}>Other</option>
+                </select>
+            </div>
+
+            <!-- Aadhar Number -->
+            <div class="form-group">
+                <label for="id_aadhar_no">Aadhar Number:</label>
+                <input type="number" id="id_aadhar_no" name="aadhar_no" class="form-control" value="{{ form.aadhar_no.value }}">
+            </div>
+
+            <!-- Skills -->
+            <div class="form-group">
+                <label for="id_skills">Skills:</label>
+                <textarea id="id_skills" name="skills" class="form-control">{{ form.skills.value }}</textarea>
+            </div>
+
+            <!-- Phone -->
+            <div class="form-group">
+                <label for="id_phone">Phone:</label>
+                <input type="text" id="id_phone" name="phone" class="form-control" value="{{ form.phone.value }}">
+            </div>
+
+            <!-- Alternative Phone -->
+            <div class="form-group">
+                <label for="id_alternative_phone">Alternative Phone:</label>
+                <input type="text" id="id_alternative_phone" name="alternative_phone" class="form-control" value="{{ form.alternative_phone.value }}">
+            </div>
+
+            <!-- Photo Upload -->
+            <div class="form-group">
+                <label for="id_photo">Upload Photo:</label>
+                <input type="file" id="id_photo" name="photo" class="form-control">
+            </div>
+
+            <!-- ID Image Upload -->
+            <div class="form-group">
+                <label for="id_id_image">Upload ID Image:</label>
+                <input type="file" id="id_id_image" name="id_image" class="form-control">
+            </div>
+
+            <!-- Ration Card Upload -->
+            <div class="form-group">
+                <label for="id_ration_card">Upload Ration Card:</label>
+                <input type="file" id="id_ration_card" name="ration_card" class="form-control">
+            </div>
+
+            <!-- Submit Button -->
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Register</button>
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>

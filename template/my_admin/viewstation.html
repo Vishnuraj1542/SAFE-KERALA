@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% for station in view %}
+<div class="card">
+        <img src="{{ station.station_image.url }}" heigth="200px" width="200px">
+        <p>{{station.station_name}}</p>
+        <p>{{station.user_details.username}}</p>
+    <p>{{station.user_details.email}}</p>
+        <a href="{{user.id}}">edit</a>
+    <a href="{{user.id}}">delete</a>
+</div>
+{% endfor %}
+</body>
+</html>
