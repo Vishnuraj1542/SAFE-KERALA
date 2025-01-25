@@ -15,7 +15,7 @@ class StationForm(forms.ModelForm):
         ]
 
 class LabourForm(forms.ModelForm):
-    class Meta():
+    class Meta:
         model=LabourDetails
         fields = ['name','age','gender','aadhar_no','skills','phone',
                   'alternative_phone','photo','id_image','ration_card']

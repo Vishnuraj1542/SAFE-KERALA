@@ -8,6 +8,8 @@ from .models import *
 from log_manager.models import LoginDetails
 from django.contrib import messages
 # Create your views here.
+
+# <----------------user registration------------------->
 class UserRegistration(View):
     def get(self,request):
         return render(request,'user/registration.html')
@@ -34,3 +36,22 @@ class UserRegistration(View):
             messages.success(request, 'Registration successful!')
             return redirect('log_manager:userhome')
         return render(request, 'user/registration.html', {'form': form})
+
+
+#           <-------------------send complaints ----------------->
+
+class Complaint(View):
+    def get(self,request):
+        return render(request,'user/send_complaint.html')
+    def post(self,request):
+        user_id=request.session['login_id']
+        user_name=UserDetails.objects.get(user_details=user_id)
+        if not user_id:
+            return redirect('log_manager:userslogin')
+        data=ComplaintForm(request.POST)
+        if data.is_valid():
+            field=data.save(commit=False)
+            field.user=user_name
+            field.save()
+            return redirect('log_manager:userhome')
+        return render(request,'user/send_complaint.html',{'data':data})

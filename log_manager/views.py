@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from django.views import View
 from django.contrib.auth import authenticate,login
 from django.contrib import messages
-from log_manager.models import *
+from .models import *
 
 # Create your views here.
 class UserPage(View):
@@ -29,6 +29,7 @@ class ForLogin(View):
     def post(self, request):
         username = request.POST.get('username')
         password = request.POST.get('password')
+        response_dict = {"sucess":False}
         landing_page_url = {
             "ADMIN": "log_manager:adminhome",
             "USER": "log_manager:userhome",
@@ -44,6 +45,8 @@ class ForLogin(View):
 
         try:
             login_details = LoginDetails.objects.get(username=username)
+            request.session['login_id'] = user.id
+            print("kja;lskdjl",user.id)
         except LoginDetails.DoesNotExist:
             response_dict["reason"] = "No account found for this username. Please signup."
             messages.error(request, response_dict["reason"])

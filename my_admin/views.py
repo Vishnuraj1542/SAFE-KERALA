@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect,get_object_or_404
 from django.views import View
 from .forms import *
 from .models import *
+from station.models import*
 from django.contrib import messages
 
 # Create your views here.
@@ -25,15 +26,15 @@ class StationRegistration(View):
             station = form.save(commit=False)
             station.user_details = item
             station.save()
-            return redirect('stationhome')
+            return redirect('log_manager:stationhome')
         else:
             return render(request, 'my_admin/station_register.html', {'form': form})
 
-                          #--viewstations--
+                    #<----------viewstations---------->
 class ViewStation(View):
     def get(self,request):
         station=StationDetails.objects.select_related('user_details').all()
-        return render(request,'my_admin/viewstation.html',{'view':station})
+        return render(request,'my_admin/view_stations.html',{'view':station})
 
   #<-------------labour registration ---------------->
 
@@ -65,5 +66,11 @@ class LabourRegistration(View):
 
 class ViewLabours(View):
     def get(self,request):
-        labours=LabourDetails.objects.selected_related('user_details').all()
-        return render(request,'my_admin/viewlabours.html')
+        labours=LabourDetails.objects.select_related('user_details').all()
+        return render(request,'my_admin/view_labours.html',{'labour':labours})
+
+                   #   <----------- view criminals list------------->
+class ListCriminals(View):
+    def get(self,request):
+        list=CriminalList.objects.all()
+        return render(request,'station/view_criminal.html',{'list':list})

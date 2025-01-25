@@ -3,8 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+        .messages .success {
+                color: green;
+                font-weight: bold;
+                margin: 10px 0;
+                            }
+
+    </style>
 </head>
 <body>
 <h1> migrated workers portal</h1>
+<a href="{% url 'feedback' %}">send Feedback</a>
+
+{% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li class="{{ message.tags }}">{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
 </body>
 </html>

@@ -21,10 +21,9 @@ class LabourDetails(models.Model):
         ('MALE','male'),
         ('FEMALE','female'),
         ('OTHER','other')
-
     ]
     name=models.CharField(max_length=50,null=True,blank=True)
-    age=models.IntegerField(null=True,blank=True)
+    age=models.DateField(null=True,blank=True)
     gender=models.CharField(max_length=50,null=True,blank=True,choices=gender)
     aadhar_no=models.IntegerField(null=True,blank=True)
     skills=models.CharField(max_length=600,null=True,blank=True)
@@ -37,4 +36,4 @@ class LabourDetails(models.Model):
     updated_at = models.DateTimeField(auto_now_add=True)
     created_at = models.DateTimeField(auto_now_add=True)
     def __str__(self):
-        return f"Station: {self.name} (ID: {self.id})"
+        return self.name

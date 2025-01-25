@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% for data in complaint %}
+<P>{{data.user}}</P>
+<P>{{data.subject}}</P>
+<p>{{data.complaint}}</p>
+<p>{{data.phone}}</p>
+<p>{{data.created_at}}</p>
+<p>{{data.id}}</p>
+{% endfor %}
+</body>
+</html>

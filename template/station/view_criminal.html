@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% for person in list %}
+<img src="{{person.image.url}}" width="200px" height="200px">
+<p>{{person.fullname}}</p>
+<p>{{person.height}}</p>
+<P>{{person.weight}}</P>
+<p>{{person.station}}</p>
+<p>{{person.created_at}}</p>
+<a href="{% url 'editcriminals' person.id  %}">edit</a>
+{% endfor %}
+</body>
+</html>

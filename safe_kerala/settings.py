@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'log_manager','my_admin',
-    'public'
+    'public','station','labour',
 ]
 
 MIDDLEWARE = [

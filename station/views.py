@@ -1,0 +1,75 @@
+from django.views import View
+from django.shortcuts import render,redirect,get_object_or_404
+from django.http import HttpResponse
+from.models import *
+from public.models import *
+from labour.models import *
+from station.models import *
+from .forms import *
+from log_manager.models import *
+from my_admin.models import *
+from django.contrib import messages
+
+
+
+  # <----------------add criminal ----------->
+class AddCriminals(View):
+    def get(self,request):
+        CriminalForm()
+        return render(request,'station/add_criminal.html')
+    def post(self,request):
+        user_id=request.session['login_id']
+        name=StationDetails.objects.get(user_details=user_id)
+        data=CriminalForm(request.POST,request.FILES)
+        if data.is_valid():
+            item=data.save(commit=False)
+            item.station=name
+            item.save()
+            return HttpResponse('criminal added sucessfully')
+        return render(request,'station/add_criminal.html')
+
+    # <------------view criminal list----------------->
+
+class ViewCriminals(View):
+    def get(self,request):
+        list=CriminalList.objects.all()
+        return render(request,'station/view_criminal.html',{'list':list})
+
+#<----------------------edit criminals list---------->
+class EditCriminals(View):
+    def get(self,request,id):
+        data=CriminalList.objects.get(pk=id)
+        return render(request,'station/edit_criminal.html',{'list':data})
+    def post(self,request,id):
+        data=CriminalList.objects.get(pk=id)
+        details=CriminalForm(request.POST,request.FILES,instance=data)
+        if details.is_valid():
+            details.save()
+            return redirect('view_criminals')
+        return render(request,'station/edit_criminal.html',{'list':data})
+
+# <--------------------viewfeedback------------------>
+class ViewFeedback(View):
+    def get(self,request):
+        list=Feedback.objects.all()
+        return render(request,'station/view_feedback.html',{'list':list})
+
+    # <--------------users complaints------------------->
+class ViewComplaints(View):
+    def get(self,request):
+        complaint=UserComplaint.objects.all()
+        return render(request,'station/view_complaint.html',{'complaint':complaint})
+
+    # <-------------change status of complaint ---------------->
+class ComplaintStatus(View):
+    def get(self,request,id):
+        complaint=UserComplaint.objects.get(pk=id)
+        return render(request,'station/changestatus.html')
+    def post(self,request,id):
+        user_id=request.session['login_id']
+        station=StationDetails.objects.get(user_details=user_id)
+        complaint=UserComplaint.objects.get(pk=id)
+        data=StatusForm(request.POST,instance=complaint)
+        if data.is_valid():
+            data.save(Commit=False)
+

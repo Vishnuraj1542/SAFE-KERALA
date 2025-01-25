@@ -21,9 +21,11 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('log_manager/',include('log_manager.urls')),
+    path('',include('log_manager.urls')),
     path('my_admin/',include('my_admin.urls')),
-    path('user/',include('public.urls')),
+    path('station/',include('station.urls')),
+    path('labour/',include('labour.urls')),
+    path('user/',include('public.urls'))
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
