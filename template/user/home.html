@@ -5,8 +5,37 @@
     <title>Title</title>
 </head>
 <body>
-<h1>this is hte user home </h1>
+<h1>this is the user home </h1>
 <label>complaint</label>
 <a href="{% url 'complaint' %}">complaint</a>
+    <div class="container">
+        <h1>Search Labourers</h1>
+        <form method="GET" action="{% url 'search_labour' %}">
+            <div class="form-group">
+                <label for="skill">Enter Skill:</label>
+                <input type="text" id="skill" name="skill" placeholder="E.g., Carpentry, Plumbing" required>
+            </div>
+            <button type="submit" class="btn">Search</button>
+        </form>
+
+        <!-- Search Results -->
+        <div class="results">
+            {% if error %}
+                <p>{{ error }}</p>
+            {% elif persons %}
+                <h2>Search Results:</h2>
+                {% for person in persons %}
+                    <div class="result-item">
+                        <p><strong>Name:</strong> {{ person.name }}</p>
+                        <p><strong>Skills:</strong> {{ person.skills }}</p>
+                    </div>
+                {% endfor %}
+            {% else %}
+                {% if skill %}
+                    <p>No results found for skill: "{{ skill }}"</p>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
 </body>
 </html>

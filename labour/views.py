@@ -1,10 +1,14 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from .models import *
+from my_admin.models import LoginDetails
+from my_admin.forms import *
 from django.views import View
 from .forms import *
 from django.contrib import messages
 
 # Create your views here.
+
+# <----------send feedback--------------->
 class Feedback (View):
     def get(self,request):
         return render(request,'labour/feedback.html')
@@ -22,5 +26,17 @@ class Feedback (View):
             return redirect('log_manager:labourhome')
         return render(request,'log_manager:labour/feedback.html')
 
-
-
+#<-------------------add and manage skills ---------------->
+class EditSkill(View):
+    def get(self,request):
+        user_id=request.session['login_id']
+        labour=LabourDetails.objects.get(user_details=user_id)
+        return render(request,'labour/manage_skill.html',{'labour':labour})
+    def post(self,request):
+        user_id = request.session['login_id']
+        labour = get_object_or_404(LabourDetails, user_details=user_id)
+        data=LabourForm(request.POST,instance=labour)
+        if data.is_valid():
+            data.save()
+            return redirect('log_manager:labourhome')
+        return render(request,'labour/manage_skill.html',{'labour':labour})

@@ -6,6 +6,7 @@ from django.views import View
 from .forms import *
 from .models import *
 from log_manager.models import LoginDetails
+from my_admin.models import *
 from django.contrib import messages
 # Create your views here.
 
@@ -55,3 +56,18 @@ class Complaint(View):
             field.save()
             return redirect('log_manager:userhome')
         return render(request,'user/send_complaint.html',{'data':data})
+
+
+                #<------search labour based on the skills ------------>
+class LabourSearch(View):
+    def get(self, request):
+        skill = request.GET.get('skill')
+        context = {}
+        if skill:
+            persons = LabourDetails.objects.filter(skills__icontains=skill)
+            context['persons'] = persons
+            context['skill'] = skill
+        else:
+            context['error'] = "Please provide a skill to search."
+
+        return render(request, 'user/home.html', context)

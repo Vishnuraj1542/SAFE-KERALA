@@ -2,6 +2,7 @@ from django.views import View
 from django.shortcuts import render,redirect,get_object_or_404
 from django.http import HttpResponse
 from.models import *
+from public.forms import *
 from public.models import *
 from labour.models import *
 from station.models import *
@@ -64,12 +65,20 @@ class ViewComplaints(View):
 class ComplaintStatus(View):
     def get(self,request,id):
         complaint=UserComplaint.objects.get(pk=id)
-        return render(request,'station/changestatus.html')
+        return render(request,'station/changestatus.html',{'complan':complaint})
     def post(self,request,id):
-        user_id=request.session['login_id']
-        station=StationDetails.objects.get(user_details=user_id)
+        user_id = request.session['login_id']
+        if not user_id:
+            messages.error("Please login for make changes")
+            return redirect('log_manager:userslogin')
+        stations=StationDetails.objects.get(user_details=user_id)
         complaint=UserComplaint.objects.get(pk=id)
         data=StatusForm(request.POST,instance=complaint)
         if data.is_valid():
-            data.save(Commit=False)
+            item=data.save(commit=False)
+            item.station=stations
+            item.save()
+            return redirect('view_complaints')
+        return render(request,'station/changestatus.html')
+
 

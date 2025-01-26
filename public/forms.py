@@ -10,4 +10,8 @@ class ComplaintForm(forms.ModelForm):
     class Meta():
         model = UserComplaint
         fields = ['subject','complaint','phone']
+class StatusForm(forms.ModelForm):
+    class Meta:
+        model=  UserComplaint
+        fields=['status','station']
 

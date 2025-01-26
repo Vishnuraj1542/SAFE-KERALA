@@ -74,3 +74,10 @@ class ListCriminals(View):
     def get(self,request):
         list=CriminalList.objects.all()
         return render(request,'station/view_criminal.html',{'list':list})
+
+
+    #<----------view complaints-------------->
+class ComplaintStatus(View):
+    def get(self,request):
+        details=Complaint.objects.all()
+        return render(request,'my_admin/view_complaint.html',{'list':details})

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Change Complaint Status</title>
+</head>
+<body>
+    <h1>Complaint Details</h1>
+    <p><strong>User:</strong> {{ complan.user }}</p>
+    <p><strong>Subject:</strong> {{ complan.subject }}</p>
+    <p><strong>Complaint:</strong> {{ complan.complaint }}</p>
+    <p><strong>Phone:</strong> {{ complan.phone }}</p>
+    <p><strong>Station:</strong> {{ complan.station }}</p>
+
+    <form method="POST">
+        {% csrf_token %}
+        <label for="status">Update Status:</label>
+        <select name="status" id="status" required>
+            <option value="" disabled selected>-----</option>
+            <option value="pending" {% if complan.status == "pending" %}selected{% endif %}>Pending</option>
+            <option value="in progress" {% if complan.status == "in progress" %}selected{% endif %}>In Progress</option>
+            <option value="resolved" {% if complan.status == "resolved" %}selected{% endif %}>Resolved</option>
+        </select>
+        <button type="submit">Update</button>
+    </form>
+</body>
+</html>
