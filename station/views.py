@@ -81,4 +81,12 @@ class ComplaintStatus(View):
             return redirect('view_complaints')
         return render(request,'station/changestatus.html')
 
+ #<------------view notification------------>
+class ViewNotifications(View):
+    def get(self, request):
+        police_station_id = request.session['login_id']
+        station=StationDetails.objects.get(user_details=police_station_id)
+        notifications = Notification.objects.filter(police_station_id=station).order_by('-sent_at')
+        return render(request, 'station/view_notifications.html', {'notifications': notifications})
+
 

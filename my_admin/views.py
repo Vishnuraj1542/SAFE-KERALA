@@ -1,4 +1,5 @@
 from django.shortcuts import render,redirect,get_object_or_404
+from django.http import HttpResponse
 from django.views import View
 from .forms import *
 from .models import *
@@ -81,3 +82,29 @@ class ComplaintStatus(View):
     def get(self,request):
         details=Complaint.objects.all()
         return render(request,'my_admin/view_complaint.html',{'list':details})
+
+# <--------------send notification to policestation ---------------->
+class SendNotification(View):
+    def get(self, request):
+        police_stations = StationDetails.objects.all()
+        return render(request, 'my_admin/send_notification.html', {'police_stations': police_stations})
+
+    def post(self, request):
+        police_station_id = request.POST.get('police_station')  # Fetch station ID from the form
+        title = request.POST.get('title')
+        message = request.POST.get('message')
+
+        try:
+            # Fetch the StationDetails object using the ID
+            police_station = StationDetails.objects.get(id=police_station_id)
+            Notification.objects.create(
+                police_station=police_station,
+                title=title,
+                message=message
+            )
+            return HttpResponse('my_admin:send_notification')
+        except StationDetails.DoesNotExist:
+            return render(request, 'my_admin/send_notification.html', {
+                'error': 'Invalid police station selected',
+                'police_stations': StationDetails.objects.all(),
+            })

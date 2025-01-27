@@ -1,7 +1,9 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from .models import *
-from my_admin.models import LoginDetails
+from my_admin.models import*
+from log_manager import*
 from my_admin.forms import *
+from log_manager import *
 from django.views import View
 from .forms import *
 from django.contrib import messages
@@ -40,3 +42,18 @@ class EditSkill(View):
             data.save()
             return redirect('log_manager:labourhome')
         return render(request,'labour/manage_skill.html',{'labour':labour})
+
+#<----------------add and manage personal issue------------------>
+class Personal(View):
+    def get(self,request):
+        return render(request,'labour/personal_issue.html')
+    def post(self,request):
+        labour=request.session['login_id']
+        log_id=LabourDetails.objects.get(user_details=labour)
+        data=PersonalIssueForm(request.POST)
+        if data.is_valid():
+            log=data.save(commit=False)
+            log.labourer=log_id
+            log.save()
+            return redirect('log_manager:labourhome')
+        return render(request,'labour/personal_issue.html')

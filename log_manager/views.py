@@ -18,10 +18,6 @@ class LabourPage(View):
     def get(self,request):
         return render(request,'labour/home.html')
 
-class Specialist_Page(View):
-    def get(self,request):
-        return render(request,'specialist/home.html')
-
 class ForLogin(View):
     def get(self, request):
         return render(request, 'log_manager/login.html')

@@ -9,3 +9,13 @@ class Feedback(models.Model):
     created_at=models.DateTimeField(auto_now_add=True)
     def __str__(self):
         return self.sender.name
+
+class PersonalIssue(models.Model):
+    labourer = models.ForeignKey(LabourDetails, on_delete=models.CASCADE, related_name="personal_issues")
+    title = models.CharField(max_length=255)
+    description = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"{self.title} - {self.labourer.username}"
