@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<img src="{{ lab.photo.url }}" height="500px" width="500px">
+<p>Labour id :{{ lab.id }}</p>
+<p>{{ lab.name }}</p>
+<P>{{ lab.user_details.username }}</P>
+<p>{{ lab.phone }}</p>
+
+<form method="POST">
+    {% csrf_token %}
+    <label>Title</label>
+    <input type="text" name="title">
+    <label>workdate:</label>
+    <input type="date" name="work_date">
+    <label>job details</label>
+    <textarea name="work_description" placeholder="enter work details"></textarea>
+    <label>phone no:</label>
+    <input type="number" name="contact">
+    <input type="submit" value="submit">
+</form>
+</body>
+</html>

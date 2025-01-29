@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% if problem %}
+{% for issue in problem %}
+    <label>labour name: </label>
+    <p>{{ issue.labourer }}</p>
+    <label>problem: </label>
+    <p>{{ issue.description }}</p>
+    <label>Date: </label>
+    <p>{{ issue.created_at }}</p>
+    <a href="{% url 'edit_issue' issue.id %}">edit</a>
+    <a href="{% url 'delete_issue' issue.id %}">delete</a>
+{% endfor %}
+{% else%}
+<label>no issue to view</label>
+{% endif %}
+</body>
+</html>

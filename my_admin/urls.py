@@ -8,4 +8,5 @@ urlpatterns=[
     path('viewlabours/',ViewLabours.as_view(),name='viewlabours'),
     path('criminallist/',ListCriminals.as_view(),name='criminallist'),
     path('sendnotification/', SendNotification.as_view(), name='send_notification'),
+    path('labour-problems/',LabourProblems.as_view(),name='labour_problems')
 ]

@@ -89,4 +89,29 @@ class ViewNotifications(View):
         notifications = Notification.objects.filter(police_station_id=station).order_by('-sent_at')
         return render(request, 'station/view_notifications.html', {'notifications': notifications})
 
+    #<----------------labour complaint view and reply--------------------->
+class ViewComplaints(View):
+    def get(self, request):
+        complaints = LabourComplaint.objects.filter(reply__isnull=True).order_by('-created_at')
+        for complaint in complaints:
+            print("jakjdljalj",complaint.complaint_text)
+        return render(request, 'station/view_complaints.html', {'complaints': complaints})
+
+                   # <----reply  to complaints-------->
+
+class ReplyComplaint(View):
+    def get(self, request, pk):
+        complaint = LabourComplaint.objects.get(pk=pk)
+        return render(request, 'station/reply_complaint.html', {'complaint': complaint})
+
+    def post(self, request, pk):
+        complaint = LabourComplaint.objects.get(pk=pk)
+        reply = request.POST.get('reply')
+        if reply:
+            complaint.reply = reply
+            complaint.save()
+            return redirect('view_complaints')
+        return render(request, 'station/view_complaints.html', {'complaint': complaint})
+
+
 

@@ -8,12 +8,14 @@
 <h1>this is the user home </h1>
 <label>complaint</label>
 <a href="{% url 'complaint' %}">complaint</a>
+<a href="{% url 'viewlabour' %}">view labours</a>
+<a href="{% url 'request_status' %}">request status</a>
     <div class="container">
         <h1>Search Labourers</h1>
         <form method="GET" action="{% url 'search_labour' %}">
             <div class="form-group">
                 <label for="skill">Enter Skill:</label>
-                <input type="text" id="skill" name="skill" placeholder="E.g., Carpentry, Plumbing" required>
+                <input type="text" id="skill" name="skill" placeholder="E.g., Carpentry">
             </div>
             <button type="submit" class="btn">Search</button>
         </form>

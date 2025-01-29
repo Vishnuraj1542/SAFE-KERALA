@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% for lab in labour %}
+<img src="{{ lab.photo.url }}" height="200px" width="200px">
+<p>Labour id :{{ lab.id }}</p>
+<p>{{ lab.name }}</p>
+<P>{{ lab.user_details.username }}</P>
+<p>{{ lab.phone }}</p>
+<a href="{% url 'request_worker' lab.id %}">request</a>
+<a href="{% url 'labour_feedback' lab.id %}">feedback</a>
+{% endfor %}
+</body>
+</html>

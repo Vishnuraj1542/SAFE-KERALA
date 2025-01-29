@@ -1,6 +1,7 @@
 from django.db import models
 from log_manager.models import LoginDetails
-from my_admin.models import StationDetails
+from my_admin.models import StationDetails,LabourDetails
+
 
 # Create your models here.
 class UserDetails(models.Model):
@@ -32,6 +33,28 @@ class UserComplaint(models.Model):
     created_at=models.DateField(auto_now_add=True,null=True)
     updated_at=models.DateField(auto_now_add=True,null=True)
     def __str__(self):
-        return f"complaint by {self.user}"
+        return self.user
 
+class RequestLabour(models.Model):
+    user_id=models.ForeignKey(LoginDetails,on_delete=models.CASCADE,null=True,blank=True)
+    labour_id=models.ForeignKey(LabourDetails,on_delete=models.CASCADE,null=True,blank=True)
+    work_date=models.DateField(null=True,blank=True)
+    title=models.CharField(max_length=50,null=True,blank=True)
+    work_description=models.TextField(null=True,blank=True)
+    contact=models.IntegerField(null=True,blank=True)
+    status=models.CharField(max_length=30,default='pending',choices=[
+        ('pending','pending'),
+        ('accepted','accepted'),
+        ('rejected', 'rejected'),
+        ('completed','completed')
+    ])
+    created_at=models.DateTimeField(auto_now_add=True)
+    updated_at=models.DateTimeField(auto_now=True)
+
+
+class LabourFeedback(models.Model):
+    user=models.ForeignKey(UserDetails,on_delete=models.CASCADE,null=True,blank=True)
+    labour=models.ForeignKey(LabourDetails,on_delete=models.CASCADE,null=True,blank=True)
+    feedback=models.TextField(null=True,blank=True)
+    created_at=models.DateField(auto_now_add=True)
 

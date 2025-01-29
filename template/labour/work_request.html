@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>work requests</h1>
+{% for work in works %}
+<p>{{work.user_id}}</p>
+{{work.work_description}}
+{{work.work_date}}
+{{ work.status}}
+<a href="{% url 'work_status' work.id %}">change work status</a>
+{% endfor %}
+</body>
+</html>

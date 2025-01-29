@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% for issue in problem %}
+<label>labour name: </label>
+<p>{{ issue.labourer }}</p>
+<label>problem: </label>
+<p>{{ issue.description }}</p>
+<label>Date: </label>
+<p>{{ issue.created_at }}</p>
+{% endfor %}
+</body>
+</html>

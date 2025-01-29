@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.views import View
 from .forms import *
 from .models import *
+from labour.models import *
 from station.models import*
 from django.contrib import messages
 
@@ -90,12 +91,11 @@ class SendNotification(View):
         return render(request, 'my_admin/send_notification.html', {'police_stations': police_stations})
 
     def post(self, request):
-        police_station_id = request.POST.get('police_station')  # Fetch station ID from the form
+        police_station_id = request.POST.get('police_station')
         title = request.POST.get('title')
         message = request.POST.get('message')
 
         try:
-            # Fetch the StationDetails object using the ID
             police_station = StationDetails.objects.get(id=police_station_id)
             Notification.objects.create(
                 police_station=police_station,
@@ -108,3 +108,8 @@ class SendNotification(View):
                 'error': 'Invalid police station selected',
                 'police_stations': StationDetails.objects.all(),
             })
+#<-----------------------view labour personal problem--------------------------->
+class LabourProblems(View):
+    def get(self,request):
+        problem=PersonalIssue.objects.all()
+        return render(request,'my_admin/view_issue.html',{'problem':problem})

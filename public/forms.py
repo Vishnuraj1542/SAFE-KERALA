@@ -15,3 +15,18 @@ class StatusForm(forms.ModelForm):
         model=  UserComplaint
         fields=['status','station']
 
+class RequestForm(forms.ModelForm):
+    class Meta:
+        model = RequestLabour
+        fields=['title','work_date','work_description','contact']
+
+class WorkStatus(forms.ModelForm):
+    class Meta():
+        model = RequestLabour
+        fields=['status']
+
+class FeedbackForm(forms.ModelForm):
+    class Meta:
+        model =LabourFeedback
+        fields=['feedback']
+

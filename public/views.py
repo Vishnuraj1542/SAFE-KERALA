@@ -1,13 +1,13 @@
-from django.shortcuts import render
-
-# Create your views here.
 from django.shortcuts import render,redirect,get_object_or_404
+from django.contrib import messages
+from django.http import HttpResponse
 from django.views import View
+from public.models import*
 from .forms import *
 from .models import *
-from log_manager.models import LoginDetails
+from log_manager .models import LoginDetails
 from my_admin.models import *
-from django.contrib import messages
+
 # Create your views here.
 
 # <----------------user registration------------------->
@@ -69,5 +69,66 @@ class LabourSearch(View):
             context['skill'] = skill
         else:
             context['error'] = "Please provide a skill to search."
-
         return render(request, 'user/home.html', context)
+
+#<--------------------------view all the labours ------------------------>
+class ViewLabour(View):
+    def get(self,request):
+        labours=LabourDetails.objects.select_related('user_details').all()
+        return render(request,'user/view_labours.html',{'labour':labours})
+
+#<-------------------requestlabour----------------------->
+class RequestLabours(View):
+    def get(self,request,id):
+        labours = get_object_or_404(LabourDetails, pk=id)
+        return render(request, 'user/request_labour.html', {'lab': labours})
+    def post(self,request,id):
+        user_pk=request.session['login_id']
+        if 'login_id' not in request.session:
+            messages.error(request, "You must be logged in to request labour.")
+            return redirect('log_manager:userslogin')
+        user=get_object_or_404(LoginDetails,pk=user_pk)
+        labours = get_object_or_404(LabourDetails, pk=id)
+        data=RequestForm(request.POST)
+        if data.is_valid():
+            item=data.save(commit=False)
+            item.user_id=user
+            item.labour_id=labours
+            item.save()
+            return HttpResponse('requested sucessfully')
+        return render(request,'user/request_labour.html')
+#<----------------------request status--------------------->
+class RequestStatus(View):
+    def get(self,request):
+        user_id=request.session['login_id']
+        user = get_object_or_404(LoginDetails,pk=user_id)
+        state=RequestLabour.objects.filter(user_id=user)
+        return render(request,'user/request_status.html',{'state':state})
+
+    #<------------- send feedback about labour----------------->
+class FeedBack(View):
+    def get(self,request,id):
+        return render(request,'user/feedback.html')
+    def post(self,request,id):
+        users_id=request.session['login_id']
+        user_name = UserDetails.objects.get(user_details=users_id)
+        labours=LabourDetails.objects.get(pk=id)
+        text=FeedbackForm(request.POST)
+        if text.is_valid():
+            obj=text.save(commit=False)
+            obj.user=user_name
+            obj.labour=labours
+            obj.save()
+            return redirect('viewlabour')
+        return render(request,'user/feedback.html')
+
+
+
+
+
+
+
+
+
+
+
