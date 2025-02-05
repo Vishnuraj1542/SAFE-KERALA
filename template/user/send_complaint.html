@@ -1,21 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<h1>Complaint forum</h1>
-<form method="POST">
-    {% csrf_token %}
-    <label>subject: </label>
-    <input type="text" name="subject" value="{{ comp.subject }}"><br>
-    <label>content: </label>
-    <textarea name="complaint" value="{{ comp.complaint }}" placeholder="enter complaint here"></textarea><br>
-    <label>contact no: </label>
-    <input type="number" name="phone"><br>
-    <input type="submit" value="submit"><br>
+{% extends 'user/home.html' %}
+{% load static %}
+{% block body %}
 
-</form>
-</body>
-</html>
+<div class="complaint-container">
+    <h2>send complaint</h2>
+
+    <form method="POST" class="complaint-form">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label for="subject">Subject</label>
+            <input type="text" id="subject" name="subject" value="{{ comp.subject }}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="complaint">Complaint</label>
+            <textarea id="complaint" name="complaint" placeholder="Enter your complaint here" required>{{ comp.complaint }}</textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="phone">Contact No</label>
+            <input type="number" id="phone" name="phone" required>
+        </div>
+
+        <button type="submit" class="submit-btn">Submit</button>
+    </form>
+</div>
+
+{% endblock %}

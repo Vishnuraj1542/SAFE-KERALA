@@ -1,33 +1,76 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <style>
-        .messages .success {
-                color: green;
-                font-weight: bold;
-                margin: 10px 0;
-                            }
-
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Labour Home - Safe Kerala</title>
+    <link rel="stylesheet" href="{% static 'css/labour_home.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-<h1> migrated workers portal</h1>
-<a href="{% url 'feedback' %}">send Feedback</a>
+    <header>
+        <nav class="navbar">
+            <h1>Safe Kerala</h1>
+            <ul class="nav-links">
+                <li><a href="{% url 'log_manager:labourhome' %}"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="{% url 'view_request' %}"><i class="fas fa-briefcase"></i> Work Requests</a></li>
+                {% if user.is_authenticated %}
+                <li><a href="{% url 'log_manager:logoutuser' %}"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+{% block body %}
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h2>Welcome to Safe Kerala</h2>
+                <p>Your trusted platform for finding work opportunities and managing your profile. Stay connected and ensure your skills are up-to-date.</p>
+                <a href="{% url 'view_request' %}" class="cta-button">View Work Requests</a>
+            </div>
+            <div class="hero-image">
+                <img src="{% static 'images/protesting.jpg' %}" alt="Labour Hero Image">
+            </div>
+        </div>
+    </section>
 
-{% if messages %}
-    <ul class="messages">
-        {% for message in messages %}
-            <li class="{{ message.tags }}">{{ message }}</li>
-        {% endfor %}
-    </ul>
-{% endif %}
-<a href="{% url 'edit_skill' %}">editskill</a>
-<a href="{% url 'personal_issue' %}">add personal issue</a>
-<a href="{% url 'view_issue' %}">view issue</a>
-<a href="{% url 'submit_complaint' %}">submit complaint</a>
-<a href="{% url 'complaint_reply' %}">complaint reply</a>
-<a href="{% url 'view_request' %}">work requests</a>
+    <section class="dashboard">
+        <h2>Your Dashboard</h2>
+        <div class="dashboard-actions">
+            <a href="{% url 'edit_skill' %}" class="action-card">
+                <i class="fas fa-edit"></i>
+                <span>Edit Skills</span>
+            </a>
+            <a href="{% url 'personal_issue' %}" class="action-card">
+                <i class="fas fa-plus"></i>
+                <span>Add Personal Issue</span>
+            </a>
+            <a href="{% url 'submit_complaint' %}" class="action-card">
+                <i class="fas fa-comment"></i>
+                <span>Submit Complaint</span>
+            </a>
+            <a href="{% url 'complaint_reply' %}" class="action-card">
+                <i class="fas fa-reply"></i>
+                <span>Complaint Replies</span>
+            </a>
+        </div>
+    </section>
+
+    <section class="feedback-section">
+        <h2>Submit Your Feedback</h2>
+        <form method="POST" action="{% url 'feedback' %}">
+            {% csrf_token %}
+            <label for="feedback">Your Feedback</label>
+            <textarea id="feedback" name="feedback" placeholder="Enter your feedback here..."></textarea>
+            <input type="submit" value="Submit" class="submit-btn">
+        </form>
+    </section>
+    <footer>
+        <p>&copy; 2025 Safe Kerala. All rights reserved to vishnu raj c</p>
+    </footer>
+    {% endblock %}
+
+
 </body>
 </html>

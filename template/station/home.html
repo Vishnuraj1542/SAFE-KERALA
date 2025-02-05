@@ -1,16 +1,55 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Police Station Module</title>
+    <link rel="stylesheet" href="{% static 'css/station_home.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-<h1> this is the police station</h1>
-<a href="{% url 'add_criminals' %}">add criminals</a>
-<a href="{% url 'view_criminals' %}">view criminals</a>
-<a href="{% url 'view_feedback' %}">view feedbacks</a>
-<a href="{% url 'view_complaints' %}">view complaint</a>
-<a href="{% url 'view_notifications' %}">view notifications</a>
-<a href="{% url 'view_complaints' %}">view complaints</a>
+    <!-- Sidebar Toggle Button -->
+    <button class="sidebar-toggle" onclick="toggleSidebar()">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2>Police Station</h2>
+        </div>
+        <ul class="sidebar-nav">
+            <li><a href="{% url 'add_criminals' %}"><i class="fas fa-user-plus"></i> Add Criminals</a></li>
+            <li><a href="{% url 'view_criminals' %}"><i class="fas fa-users"></i> View Criminals</a></li>
+            <li><a href="{% url 'view_feedback' %}"><i class="fas fa-comments"></i> View Feedbacks</a></li>
+            <li><a href="{% url 'view_notifications' %}"><i class="fas fa-bell"></i> View Notifications</a></li>
+                    <!-- Complaints Dropdown -->
+    <li class="dropdown">
+        <a href="#" class="dropdown-toggle"><i class="fas fa-exclamation-circle"></i> Complaints <i class="fas fa-caret-down"></i></a>
+        <ul class="dropdown-menu">
+            <li><a href="{% url 'view_complaints' %}"><i class="fas fa-user-shield"></i> Labour Complaints</a></li>
+            <li><a href="{% url 'public_complaints' %}"><i class="fas fa-users"></i> Public Complaints</a></li>
+        </ul>
+    </li>
+
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content" id="main-content">
+        {% block body %}
+        {% endblock %}
+    </div>
+
+    <!-- JavaScript for Sidebar Toggle -->
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.getElementById('main-content');
+            sidebar.classList.toggle('collapsed');
+            mainContent.classList.toggle('expanded');
+        }
+    </script>
 </body>
 </html>

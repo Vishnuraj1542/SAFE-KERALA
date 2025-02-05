@@ -1,13 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-{% for data in list %}
-<p>{{ data.sender }}</p>
-<p>{{ data.feedback }}</p>
-{% endfor %}
-</body>
-</html>
+{% extends 'station/home.html' %}
+{% load static %}
+{% block body %}
+
+<div class="feedback-container">
+    <h2 class="feedback-title">Feedback List</h2>
+
+    {% if list %}
+        <div class="feedback-list">
+            {% for data in list %}
+                <div class="feedback-card">
+                    <div class="feedback-header">
+                        <span class="feedback-sender">{{ data.sender }}</span>
+                    </div>
+                    <div class="feedback-content">
+                        <p>{{ data.feedback }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="no-feedback">No feedback available.</p>
+    {% endif %}
+</div>
+
+{% endblock %}

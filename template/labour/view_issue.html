@@ -1,23 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-{% if problem %}
-{% for issue in problem %}
-    <label>labour name: </label>
-    <p>{{ issue.labourer }}</p>
-    <label>problem: </label>
-    <p>{{ issue.description }}</p>
-    <label>Date: </label>
-    <p>{{ issue.created_at }}</p>
-    <a href="{% url 'edit_issue' issue.id %}">edit</a>
-    <a href="{% url 'delete_issue' issue.id %}">delete</a>
-{% endfor %}
-{% else%}
-<label>no issue to view</label>
-{% endif %}
-</body>
-</html>
+{% extends 'labour/home.html' %}
+{% load static %}
+
+{% block body %}
+<div class="container">
+    <h2>View Issues</h2>
+
+    {% if problem %}
+        <div class="issue-list">
+            {% for issue in problem %}
+                <div class="issue-card">
+                    <p><strong>Labour Name:</strong> {{ issue.labourer }}</p>
+                    <p><strong>Problem:</strong> {{ issue.description }}</p>
+                    <p><strong>Date:</strong> {{ issue.created_at }}</p>
+                    <div class="issue-actions">
+                        <a href="{% url 'edit_issue' issue.id %}" class="btn edit-btn">Edit</a>
+                        <a href="{% url 'delete_issue' issue.id %}" class="btn delete-btn">Delete</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="no-issue">No issues to view.</p>
+    {% endif %}
+</div>
+{% endblock %}

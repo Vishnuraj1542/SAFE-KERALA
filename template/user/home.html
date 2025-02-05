@@ -1,43 +1,110 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Safe Kerala - Migrated Workers Portal</title>
+    <link rel="stylesheet" href="{% static 'css/user_home.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-<h1>this is the user home </h1>
-<label>complaint</label>
-<a href="{% url 'complaint' %}">complaint</a>
-<a href="{% url 'viewlabour' %}">view labours</a>
-<a href="{% url 'request_status' %}">request status</a>
+    <header>
+        <nav class="navbar">
+            <h1>Safe Kerala</h1>
+            <ul class="nav-links">
+                <a href="{% url 'complaint' %}">File a Complaint</a>
+                <a href="{% url 'viewlabour' %}">View Labourers</a>
+                <a href="{% url 'request_status' %}">Request Status</a>
+
+            </ul>
+        </nav>
+    </header>
+
+
     <div class="container">
-        <h1>Search Labourers</h1>
         <form method="GET" action="{% url 'search_labour' %}">
             <div class="form-group">
-                <label for="skill">Enter Skill:</label>
-                <input type="text" id="skill" name="skill" placeholder="E.g., Carpentry">
+                <input type="text" id="skill" name="skill" placeholder="Enter Skill">
+                <button type="submit" class="btn">Search</button>
             </div>
-            <button type="submit" class="btn">Search</button>
         </form>
+    </div>
 
-        <!-- Search Results -->
-        <div class="results">
-            {% if error %}
-                <p>{{ error }}</p>
-            {% elif persons %}
-                <h2>Search Results:</h2>
-                {% for person in persons %}
-                    <div class="result-item">
-                        <p><strong>Name:</strong> {{ person.name }}</p>
-                        <p><strong>Skills:</strong> {{ person.skills }}</p>
-                    </div>
-                {% endfor %}
-            {% else %}
-                {% if skill %}
-                    <p>No results found for skill: "{{ skill }}"</p>
-                {% endif %}
-            {% endif %}
+    {% block body %}
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h2>Welcome to Safe Kerala</h2>
+                <p>Your trusted platform for finding verified and skilled migrant workers. Ensure safety, reliability, and efficiency in hiring with our centralized system.</p>
+                <a href="{% url 'log_manager:userslogin' %}" class="cta-button">Get Started</a>
+            </div>
+            <div class="hero-image">
+                <img src="{% static 'images/factory_work.jpg' %}" alt="Safe Kerala">
+            </div>
+        </div>
+    </section>
+
+    <section class="about-us">
+    <div class="about-content">
+        <div class="about-text">
+            <h2>About Us</h2>
+            <p>Safe Kerala is a comprehensive platform designed to ensure the safety, security, and proper regulation of migrant workers in Kerala. Our system connects verified laborers with potential employers, providing an easy-to-use interface to search for skilled workers based on their expertise and background.</p>
+            <p>Our mission is to create a trustworthy environment for both workers and employers by integrating features such as police verification, skill-based hiring, complaint resolution, and real-time updates. We prioritize security, transparency, and efficiency in hiring processes.</p>
+            <p>With Safe Kerala, users can file complaints, track work requests, and access a database of pre-verified skilled laborers. The system is designed to minimize exploitation, prevent fraud, and ensure that workers receive the dignity and protection they deserve.</p>
+            <p>Join Safe Kerala today and contribute to building a safer and more organized workforce in the state.</p>
+        </div>
+        <div class="about-image">
+            <img src="{% static 'images/worker_image.jpg' %}" alt="About Safe Kerala">
         </div>
     </div>
+</section>
+
+    <section class="features">
+        <h2>Key Features</h2>
+        <div class="feature-cards">
+            <div class="card">
+                <i class="fas fa-check-circle"></i>
+                <h3>Verified Workers</h3>
+                <p>Only police-verified workers are listed on the platform.</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-search"></i>
+                <h3>Skill-Based Search</h3>
+                <p>Find workers based on their technical skills and expertise.</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-shield-alt"></i>
+                <h3>Safety First</h3>
+                <p>Block workers with criminal records and ensure a secure environment.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="how-it-works">
+        <h2>How It Works</h2>
+        <div class="steps">
+            <div class="step">
+                <i class="fas fa-user-plus"></i>
+                <h3>Step 1: Register</h3>
+                <p>Users and workers can register with valid credentials.</p>
+            </div>
+            <div class="step">
+                <i class="fas fa-user-shield"></i>
+                <h3>Step 2: Verification</h3>
+                <p>Workers are verified by police to ensure security.</p>
+            </div>
+            <div class="step">
+                <i class="fas fa-briefcase"></i>
+                <h3>Step 3: Hire or Get Hired</h3>
+                <p>Search, connect, and hire skilled workers safely.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Safe Kerala. All rights reserved.</p>
+    </footer>
+    {% endblock %}
 </body>
 </html>

@@ -1,18 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-  <h2>Reply to Complaint</h2>
-  <form method="post">
-    {% csrf_token %}
-    <textarea name="reply" rows="4" cols="40" placeholder="Write your reply here..."></textarea><br><br>
-    <button type="submit">Send Reply</button>
-  </form>
-  <br>
-  <a href="{% url 'view_complaints' %}">Back to Complaints</a>
+{% extends 'station/home.html' %}
+{% load static %}
+{% block body %}
+<div class="reply-complaint-container">
+    <h2 class="reply-complaint-title">Reply to Complaint</h2>
 
-</body>
-</html>
+    <form method="post" class="reply-complaint-form">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="reply">Your Reply:</label>
+            <textarea name="reply" id="reply" rows="4" placeholder="Write your reply here..." required></textarea>
+        </div>
+
+        <button type="submit" class="reply-submit-btn">Send Reply</button>
+    </form>
+
+    <a href="{% url 'view_complaints' %}" class="back-to-complaints">← Back to Complaints</a>
+</div>
+{% endblock %}
+

@@ -1,19 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-{% for station in view %}
-<div class="card">
-        <img src="{{ station.station_image.url }}" heigth="200px" width="200px">
-        <p>{{station.station_name}}</p>
-        <p>{{station.user_details.username}}</p>
-    <p>{{station.user_details.email}}</p>
-        <a href="{{user.id}}">edit</a>
-    <a href="{{user.id}}">delete</a>
-</div>
-{% endfor %}
-</body>
-</html>
+{% extends 'my_admin/home.html' %}
+{% block body %}
+    <div class="stations-container">
+        <h2 class="page-title">Police Stations</h2>
+        <div class="stations-list">
+            {% for station in view %}
+                <div class="station-card">
+                    <div class="station-image">
+                        <img src="{{ station.station_image.url }}" alt="{{ station.station_name }}">
+                    </div>
+                    <div class="station-details">
+                        <p><strong>Number:</strong> {{ station.station_number }}</p>
+                        <p><strong>Name:</strong> {{ station.station_name }}</p>
+                        <p><strong>Address:</strong> {{ station.address }}</p>
+                    </div>
+                    <div class="station-actions">
+                        <a href="{% url 'editstation' station.id %}" class="edit-btn">Edit</a>
+                        <a href="{% url 'deletestation' station.id %}" class="delete-btn">Delete</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

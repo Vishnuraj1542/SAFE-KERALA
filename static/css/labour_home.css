@@ -1,0 +1,1004 @@
+/* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+header {
+    background-color: #007BFF;
+    color: white;
+    padding: 10px 20px;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.navbar h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+    flex-wrap: wrap;
+}
+
+.nav-links li {
+    margin-left: 20px;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+}
+
+.nav-links a i {
+    margin-right: 8px;
+}
+
+.nav-links a:hover {
+    text-decoration: underline;
+}
+
+.login-btn {
+    background-color: #28a745;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.login-btn:hover {
+    background-color: #218838;
+}
+
+/* Hero Section */
+.hero {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 50px 20px;
+    background-color: #fff;
+    flex-wrap: wrap;
+}
+
+.hero-content {
+    display: flex;
+    align-items: center;
+    max-width: 1200px;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+.hero-text {
+    flex: 1;
+    padding-right: 40px;
+    min-width: 300px;
+}
+
+.hero-text h2 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+.hero-text p {
+    font-size: 18px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.cta-button {
+    background-color: #007BFF;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.cta-button:hover {
+    background-color: #0056b3;
+}
+
+.hero-image {
+    flex: 1;
+    text-align: center;
+    min-width: 300px;
+}
+
+.hero-image img {
+    max-width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Dashboard Section */
+.dashboard {
+    padding: 50px 20px;
+    background-color: #f8f9fa;
+    text-align: center;
+}
+
+.dashboard h2 {
+    font-size: 28px;
+    margin-bottom: 40px;
+}
+
+.dashboard-actions {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.action-card {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 200px;
+    text-align: center;
+    text-decoration: none;
+    color: #333;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.action-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.action-card i {
+    font-size: 36px;
+    color: #007BFF;
+    margin-bottom: 20px;
+}
+
+.action-card span {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* Feedback Section */
+.feedback-section {
+    padding: 50px 20px;
+    background-color: #fff;
+    text-align: center;
+}
+
+.feedback-section h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.feedback-section textarea {
+    width: 100%;
+    max-width: 600px;
+    height: 150px;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+}
+
+.submit-btn {
+    background-color: #007BFF;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.submit-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Footer */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin-top: 50px;
+}
+
+footer p {
+    margin: 0;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .nav-links {
+        margin-top: 10px;
+    }
+
+    .nav-links li {
+        margin: 10px 0;
+    }
+
+    .hero-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .hero-text {
+        padding-right: 0;
+        margin-bottom: 20px;
+    }
+
+    .hero-image {
+        margin-top: 20px;
+    }
+
+    .dashboard-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .action-card {
+        width: 80%;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-text h2 {
+        font-size: 28px;
+    }
+
+    .hero-text p {
+        font-size: 16px;
+    }
+
+    .cta-button {
+        width: 100%;
+        text-align: center;
+    }
+
+    .feedback-section textarea {
+        height: 100px;
+    }
+}
+
+
+
+/* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* Status Update Container */
+.status-update-container {
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.status-update-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #007BFF;
+}
+
+/* Form Styles */
+.status-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.form-group label {
+    font-size: 16px;
+    font-weight: bold;
+    color: #555;
+}
+
+.status-select {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    transition: border-color 0.3s ease;
+}
+
+.status-select:focus {
+    border-color: #007BFF;
+    outline: none;
+}
+
+/* Submit Button */
+.submit-btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #007BFF;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.submit-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .status-update-container {
+        margin: 20px;
+        padding: 15px;
+    }
+
+    .status-update-container h2 {
+        font-size: 20px;
+    }
+
+    .status-select {
+        font-size: 14px;
+    }
+
+    .submit-btn {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
+}
+
+
+/* General Styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+}
+
+/* Heading */
+h2 {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 1.8rem;
+  color: #333;
+}
+
+/* Table Styles */
+table {
+  width: 80%;
+  margin: 20px auto;
+  border-collapse: collapse;
+  background: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Table Header */
+thead {
+  background: #333;
+  color: white;
+  text-align: left;
+}
+
+thead th {
+  padding: 12px;
+  font-size: 1.1rem;
+}
+
+/* Table Body */
+tbody tr {
+  border-bottom: 1px solid #ddd;
+}
+
+tbody tr:nth-child(even) {
+  background: #f9f9f9;
+}
+
+tbody tr:hover {
+  background: #f1f1f1;
+}
+
+tbody td {
+  padding: 10px;
+  font-size: 1rem;
+  color: #333;
+}
+
+/* No Replies Message */
+p {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #555;
+  margin-top: 20px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  table {
+    width: 95%;
+  }
+
+  thead th {
+    font-size: 1rem;
+    padding: 10px;
+  }
+
+  tbody td {
+    font-size: 0.9rem;
+    padding: 8px;
+  }
+}
+
+
+
+
+/* General Styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+/* Form Container */
+.form-container {
+    width: 50%;
+    margin: 30px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Heading */
+h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Form Group */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 1rem;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: border 0.3s ease-in-out;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+/* Submit Button */
+.form-group input[type="submit"] {
+    background-color: #007bff;
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+    width: 100%;
+}
+
+.form-group input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+
+@media (max-width: 768px) {
+    .form-container {
+        width: 90%;
+    }
+}
+
+
+
+
+/* General Styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+/* Form Container */
+.form-container {
+    width: 50%;
+    margin: 30px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Heading */
+h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Form Group */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 1rem;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: border 0.3s ease-in-out;
+}
+
+.form-group textarea:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+/* Submit Button */
+.form-group input[type="submit"] {
+    background-color: #007bff;
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+    width: 100%;
+}
+
+.form-group input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .form-container {
+        width: 90%;
+    }
+}
+
+
+
+
+/* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* Personal Issue Container */
+.personal-issue-container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.personal-issue-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #007BFF;
+}
+
+/* Form Styles */
+.personal-issue-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.form-group label {
+    font-size: 16px;
+    font-weight: bold;
+    color: #555;
+}
+
+.form-input, .form-textarea {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    transition: border-color 0.3s ease;
+}
+
+.form-input:focus, .form-textarea:focus {
+    border-color: #007BFF;
+    outline: none;
+}
+
+.form-textarea {
+    resize: vertical;
+    min-height: 150px;
+}
+
+/* Submit Button */
+.submit-btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #007BFF;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.submit-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .personal-issue-container {
+        margin: 20px;
+        padding: 15px;
+    }
+
+    .personal-issue-container h2 {
+        font-size: 20px;
+    }
+
+    .form-input, .form-textarea {
+        font-size: 14px;
+    }
+
+    .submit-btn {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
+}
+
+
+
+
+
+/* General Styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+/* Form Container */
+.form-container {
+    width: 50%;
+    margin: 30px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Heading */
+h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Form Group */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 1rem;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: border 0.3s ease-in-out;
+}
+
+.form-group textarea:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+/* Submit Button */
+.form-group input[type="submit"] {
+    background-color: #007bff;
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+    width: 100%;
+}
+
+.form-group input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .form-container {
+        width: 90%;
+    }
+}
+
+
+
+
+
+/* Container Styling */
+.container {
+    width: 60%;
+    margin: 30px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Heading */
+h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Issue List */
+.issue-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Issue Card */
+.issue-card {
+    background: #f9f9f9;
+    padding: 15px;
+    border-left: 5px solid #007bff;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.issue-card p {
+    margin: 5px 0;
+    color: #333;
+}
+
+/* Actions */
+.issue-actions {
+    margin-top: 10px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 8px 12px;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background 0.3s;
+}
+
+.edit-btn {
+    background: #007bff;
+    color: white;
+}
+
+.edit-btn:hover {
+    background: #0056b3;
+}
+
+.delete-btn {
+    background: #dc3545;
+    color: white;
+    margin-left: 10px;
+}
+
+.delete-btn:hover {
+    background: #b02a37;
+}
+
+/* No Issues Message */
+.no-issue {
+    text-align: center;
+    color: #777;
+    font-size: 16px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        width: 90%;
+    }
+}
+
+
+
+
+
+
+/* Container Styling */
+.container {
+    width: 60%;
+    margin: 30px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Heading */
+h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Work List */
+.work-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Work Card */
+.work-card {
+    background: #f9f9f9;
+    padding: 15px;
+    border-left: 5px solid #007bff;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.work-card p {
+    margin: 5px 0;
+    color: #333;
+}
+
+/* Status Styling */
+.status {
+    font-weight: bold;
+    padding: 3px 7px;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+.status.pending {
+    color: #856404;
+    background-color: #fff3cd;
+}
+
+.status.approved {
+    color: #155724;
+    background-color: #d4edda;
+}
+
+.status.rejected {
+    color: #721c24;
+    background-color: #f8d7da;
+}
+
+/* Actions */
+.work-actions {
+    margin-top: 10px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 8px 12px;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background 0.3s;
+}
+
+.status-btn {
+    background: #007bff;
+    color: white;
+}
+
+.status-btn:hover {
+    background: #0056b3;
+}
+
+/* No Requests Message */
+.no-requests {
+    text-align: center;
+    color: #777;
+    font-size: 16px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        width: 90%;
+    }
+}
+

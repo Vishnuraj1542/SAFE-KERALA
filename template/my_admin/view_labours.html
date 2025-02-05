@@ -1,16 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-{% for lab in labour %}
-<img src="{{ lab.photo.url }}" height="200px" width="200px">
-<p>Labour id :{{ lab.id }}</p>
-<p>{{ lab.name }}</p>
-<P>{{ lab.user_details.username }}</P>
-<p>{{ lab.phone }}</p>
-{% endfor %}
-</body>
-</html>
+{% extends 'my_admin/home.html' %}
+{% block body %}
+    <div class="labours-container">
+        <h3 class="page-title">View Labours</h3>
+        <div class="labours-list">
+            {% for lab in labour %}
+                <div class="labour-card">
+                    <div class="labour-header">
+                        <h4>Labour ID Card</h4>
+                    </div>
+                    <div class="labour-photo">
+                        <img src="{{ lab.photo.url }}" alt="{{ lab.name }}">
+                    </div>
+                    <div class="labour-details">
+                        <p><strong>ID:</strong> {{ lab.id }}</p>
+                        <p><strong>Name:</strong> {{ lab.name }}</p>
+                        <p><strong>Age:</strong> {{ lab.age }}</p>
+                        <p><strong>Gender:</strong> {{ lab.gender }}</p>
+                        <p><strong>Skills:</strong> {{ lab.skills }}</p>
+                        <p><strong>Phone:</strong> {{ lab.phone }}</p>
+
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

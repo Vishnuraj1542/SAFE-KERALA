@@ -19,6 +19,7 @@ class UserDetails(models.Model):
     def __str__(self):
         return self.name
 
+
 class UserComplaint(models.Model):
     user=models.ForeignKey(UserDetails,null=True,blank=True,on_delete=models.CASCADE)
     station=models.ForeignKey(StationDetails,null=True,blank=True,on_delete=models.CASCADE)
@@ -32,8 +33,7 @@ class UserComplaint(models.Model):
     phone=models.IntegerField(null=True,blank=True)
     created_at=models.DateField(auto_now_add=True,null=True)
     updated_at=models.DateField(auto_now_add=True,null=True)
-    def __str__(self):
-        return self.user
+
 
 class RequestLabour(models.Model):
     user_id=models.ForeignKey(LoginDetails,on_delete=models.CASCADE,null=True,blank=True)

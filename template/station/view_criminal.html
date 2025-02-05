@@ -1,18 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-{% for person in list %}
-<img src="{{person.image.url}}" width="200px" height="200px">
-<p>{{person.fullname}}</p>
-<p>{{person.height}}</p>
-<P>{{person.weight}}</P>
-<p>{{person.station}}</p>
-<p>{{person.created_at}}</p>
-<a href="{% url 'editcriminals' person.id  %}">edit</a>
-{% endfor %}
-</body>
-</html>
+{% extends 'station/home.html' %}
+{% load static %}
+{% block body %}
+
+<div class="criminals-wrapper">
+    <h2 class="criminals-title">Criminals List</h2>
+
+    <div class="criminals-grid">
+        {% for person in list %}
+            <div class="criminal-card">
+                <div class="criminal-photo">
+                    <img src="{{ person.image.url }}" alt="{{ person.fullname }}">
+                </div>
+                <div class="criminal-info">
+                    <p><strong>Name:</strong> {{ person.fullname }}</p>
+                    <p><strong>Police Station:</strong> {{ person.station }}</p>
+                    <p><strong>Offenses:</strong> {{ person.offenses }}</p>
+                    <p><strong>Date Added:</strong> {{ person.created_at }}</p>
+                </div>
+                <div class="criminal-actions">
+                    <a href="{% url 'editcriminals' person.id %}" class="edit-btn">Edit</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

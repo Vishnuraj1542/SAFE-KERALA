@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
 from django.views import View
-from django.contrib.auth import authenticate,login
+from django.contrib.auth import authenticate,login,logout
+
 from django.contrib import messages
 from .models import *
 
@@ -60,7 +61,12 @@ class ForLogin(View):
         user_type = user.user_type
         if user_type in landing_page_url:
             return redirect(landing_page_url[user_type])
+            print(request.user.is_authenticated)
         else:
             response_dict["reason"] = "Invalid user type."
             messages.error(request, response_dict["reason"])
             return render(request, 'log_manager/login.html', {"error_message": response_dict["reason"]})
+class LogoutUser(View):
+    def get(self, request):
+        logout(request)
+        return redirect('log_manager:userslogin')

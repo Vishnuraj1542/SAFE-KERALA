@@ -1,23 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>View Notifications</title>
-</head>
-<body>
-    <h1>Your Notifications</h1>
-    <ul>
-        {% for notification in notifications %}
-            <li>
-                <strong>{{ notification.title }}</strong><br>
-                {{ notification.message }}<br>
-                <small>Sent At: {{ notification.sent_at }}</small>
-            </li>
-            <hr>
-        {% empty %}
-            <p>No notifications available.</p>
-        {% endfor %}
-    </ul>
-</body>
-</html>
+{% extends 'station/home.html' %}
+{% load static %}
+{% block body %}
+<div class="notifications-container">
+    <h2 class="notifications-title">Your Notifications</h2>
+
+    {% if notifications %}
+        <ul class="notifications-list">
+            {% for notification in notifications %}
+                <li class="notification-item">
+                    <div class="notification-content">
+                        <h3 class="notification-title">{{ notification.title }}</h3>
+                        <p class="notification-message">{{ notification.message }}</p>
+                        <span class="notification-time">📅 Sent At: {{ notification.sent_at }}</span>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p class="no-notifications">No notifications available.</p>
+    {% endif %}
+</div>
+{% endblock %}

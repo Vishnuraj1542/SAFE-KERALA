@@ -1,12 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Replies</title>
-</head>
-<body>
-    <h2>Station Replies</h2>
+{% extends 'labour/home.html' %}
+{% load static %}
+{% block body %}
+    <h2>Replies from station</h2>
 
     {% if replies %}
         <table>
@@ -30,5 +25,4 @@
     {% else %}
         <p>No replies yet.</p>
     {% endif %}
-</body>
-</html>
+{% endblock %}

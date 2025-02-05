@@ -1,17 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<h1>work requests</h1>
-{% for work in works %}
-<p>{{work.user_id}}</p>
-{{work.work_description}}
-{{work.work_date}}
-{{ work.status}}
-<a href="{% url 'work_status' work.id %}">change work status</a>
-{% endfor %}
-</body>
-</html>
+{% extends 'labour/home.html' %}
+{% load static %}
+
+{% block body %}
+<div class="container">
+    <h2>Work Requests</h2>
+
+    {% if works %}
+        <div class="work-list">
+            {% for work in works %}
+                <div class="work-card">
+                    <p><strong>Requested By:</strong> {{ work.user_id }}</p>
+                    <p><strong>Description:</strong> {{ work.work_description }}</p>
+                    <p><strong>Date:</strong> {{ work.work_date }}</p>
+                    <p><strong>Status:</strong> <span class="status {{ work.status|lower }}">{{ work.status }}</span></p>
+                    <div class="work-actions">
+                        <a href="{% url 'work_status' work.id %}" class="btn status-btn">Change Work Status</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="no-requests">No work requests available.</p>
+    {% endif %}
+</div>
+{% endblock %}

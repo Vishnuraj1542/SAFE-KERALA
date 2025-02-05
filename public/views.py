@@ -21,7 +21,6 @@ class UserRegistration(View):
         if LoginDetails.objects.filter(username=username).exists():
             messages.error(request, 'Username is already taken. Please try something else.')
             return render(request, 'user/registration.html', {'form': form})
-
         if form.is_valid():
             item = LoginDetails.objects.create_user(
                 username=username,
@@ -69,7 +68,7 @@ class LabourSearch(View):
             context['skill'] = skill
         else:
             context['error'] = "Please provide a skill to search."
-        return render(request, 'user/home.html', context)
+        return render(request, 'user/view_labours.html', context)
 
 #<--------------------------view all the labours ------------------------>
 class ViewLabour(View):
@@ -95,7 +94,7 @@ class RequestLabours(View):
             item.user_id=user
             item.labour_id=labours
             item.save()
-            return HttpResponse('requested sucessfully')
+            return redirect('request_status')
         return render(request,'user/request_labour.html')
 #<----------------------request status--------------------->
 class RequestStatus(View):

@@ -1,44 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Labour Registration</title>
-</head>
-<body>
-    <div class="container">
-        <h2>Labour Registration Form</h2>
-        <form method="POST" enctype="multipart/form-data">
+{% extends 'my_admin/home.html' %}
+{% block body %}
+    <div class="form-container">
+        <h2 class="form-title">Labour Registration Form</h2>
+        <form method="POST" enctype="multipart/form-data" class="registration-form">
             {% csrf_token %}
 
             <div class="form-group">
                 <label for="id_username">User Name:</label>
-                <input type="text" id="id_name" name="username" class="form-control" value="{{ form.username }}">
+                <input type="text" id="id_username" name="username" class="form-control" value="{{ form.username }}" required>
                 {% if msg %}
-                <p>{{msg}}</p>
+                <p class="error-message">{{ msg }}</p>
                 {% endif %}
             </div>
+
             <div class="form-group">
-                <label for="id_name">password:</label>
-                <input type="password" id="id_name" name="password" class="form-control" value="{{ form.password }}">
+                <label for="id_password">Password:</label>
+                <input type="password" id="id_password" name="password" class="form-control" value="{{ form.password }}" required>
             </div>
+
             <div class="form-group">
-                <label for="id_name">Email:</label>
-                <input type="email" id="id_name" name="email" class="form-control" value="{{ form.email }}">
+                <label for="id_email">Email:</label>
+                <input type="email" id="id_email" name="email" class="form-control" value="{{ form.email }}" required>
             </div>
 
             <div class="form-group">
                 <label for="id_name">Name:</label>
-                <input type="text" id="id_name" name="name" class="form-control" value="{{ form.name }}">
+                <input type="text" id="id_name" name="name" class="form-control" value="{{ form.name }}" required>
             </div>
 
-            <!-- Age -->
             <div class="form-group">
                 <label for="id_age">Age:</label>
-                <input type="date" id="id_age" name="age" class="form-control" value="{{ form.age.value }}">
+                <input type="date" id="id_age" name="age" class="form-control" value="{{ form.age.value }}" required>
             </div>
 
-            <!-- Gender -->
             <div class="form-group">
                 <label for="id_gender">Gender:</label>
                 <select id="id_gender" name="gender" class="form-control">
@@ -48,54 +42,44 @@
                 </select>
             </div>
 
-            <!-- Aadhar Number -->
             <div class="form-group">
                 <label for="id_aadhar_no">Aadhar Number:</label>
-                <input type="number" id="id_aadhar_no" name="aadhar_no" class="form-control" value="{{ form.aadhar_no.value }}">
+                <input type="number" id="id_aadhar_no" name="aadhar_no" class="form-control" value="{{ form.aadhar_no.value }}" required>
             </div>
 
-            <!-- Skills -->
             <div class="form-group">
                 <label for="id_skills">Skills:</label>
-                <textarea id="id_skills" name="skills" class="form-control">{{ form.skills.value }}</textarea>
+                <textarea id="id_skills" name="skills" class="form-control" required>{{ form.skills.value }}</textarea>
             </div>
 
-            <!-- Phone -->
             <div class="form-group">
                 <label for="id_phone">Phone:</label>
-                <input type="text" id="id_phone" name="phone" class="form-control" value="{{ form.phone.value }}">
+                <input type="text" id="id_phone" name="phone" class="form-control" value="{{ form.phone.value }}" required>
             </div>
 
-            <!-- Alternative Phone -->
             <div class="form-group">
                 <label for="id_alternative_phone">Alternative Phone:</label>
-                <input type="text" id="id_alternative_phone" name="alternative_phone" class="form-control" value="{{ form.alternative_phone.value }}">
+                <input type="text" id="id_alternative_phone" name="alternative_phone" class="form-control" value="{{ form.alternative_phone.value }}" required>
             </div>
 
-            <!-- Photo Upload -->
             <div class="form-group">
                 <label for="id_photo">Upload Photo:</label>
-                <input type="file" id="id_photo" name="photo" class="form-control">
+                <input type="file" id="id_photo" name="photo" class="form-control" required>
             </div>
 
-            <!-- ID Image Upload -->
             <div class="form-group">
                 <label for="id_id_image">Upload ID Image:</label>
-                <input type="file" id="id_id_image" name="id_image" class="form-control">
+                <input type="file" id="id_id_image" name="id_image" class="form-control" required>
             </div>
 
-            <!-- Ration Card Upload -->
             <div class="form-group">
                 <label for="id_ration_card">Upload Ration Card:</label>
-                <input type="file" id="id_ration_card" name="ration_card" class="form-control">
+                <input type="file" id="id_ration_card" name="ration_card" class="form-control" required>
             </div>
 
-            <!-- Submit Button -->
             <div class="form-group">
-                <button type="submit" class="btn btn-primary">Register</button>
+                <button type="submit" class="submit-btn">Register</button>
             </div>
         </form>
     </div>
-
-</body>
-</html>
+{% endblock %}

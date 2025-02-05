@@ -1,28 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Change Complaint Status</title>
-</head>
-<body>
-    <h1>Complaint Details</h1>
-    <p><strong>User:</strong> {{ complan.user }}</p>
-    <p><strong>Subject:</strong> {{ complan.subject }}</p>
-    <p><strong>Complaint:</strong> {{ complan.complaint }}</p>
-    <p><strong>Phone:</strong> {{ complan.phone }}</p>
-    <p><strong>Station:</strong> {{ complan.station }}</p>
+{% extends 'station/home.html' %}
+{% load static %}
+{% block body %}
 
-    <form method="POST">
-        {% csrf_token %}
-        <label for="status">Update Status:</label>
-        <select name="status" id="status" required>
-            <option value="" disabled selected>-----</option>
-            <option value="pending" {% if complan.status == "pending" %}selected{% endif %}>Pending</option>
-            <option value="in progress" {% if complan.status == "in progress" %}selected{% endif %}>In Progress</option>
-            <option value="resolved" {% if complan.status == "resolved" %}selected{% endif %}>Resolved</option>
-        </select>
-        <button type="submit">Update</button>
-    </form>
-</body>
-</html>
+<div class="complaint-details-wrapper">
+    <div class="complaint-header">
+        <h1>Complaint Details</h1>
+    </div>
+
+    <div class="complaint-info">
+        <div class="complaint-item"><strong>User:</strong> <span>{{ complan.user }}</span></div>
+        <div class="complaint-item"><strong>Subject:</strong> <span>{{ complan.subject }}</span></div>
+        <div class="complaint-item"><strong>Complaint:</strong> <span>{{ complan.complaint }}</span></div>
+        <div class="complaint-item"><strong>Phone:</strong> <span>{{ complan.phone }}</span></div>
+        <div class="complaint-item"><strong>Station:</strong> <span>{{ complan.station }}</span></div>
+    </div>
+
+    <div class="complaint-form-section">
+        <form method="POST">
+            {% csrf_token %}
+            <label for="status">Update Status:</label>
+            <select name="status" id="status" required>
+                <option value="" disabled selected>-----</option>
+                <option value="pending" {% if complan.status == "pending" %}selected{% endif %}>Pending</option>
+                <option value="in progress" {% if complan.status == "in progress" %}selected{% endif %}>In Progress</option>
+                <option value="resolved" {% if complan.status == "resolved" %}selected{% endif %}>Resolved</option>
+            </select>
+            <button type="submit" class="btn-update-status">Update</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

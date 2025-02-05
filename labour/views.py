@@ -17,23 +17,31 @@ from public.forms import WorkStatus
 # Create your views here.
 
 # <----------send feedback--------------->
-class Feedback (View):
-    def get(self,request):
-        return render(request,'labour/feedback.html')
-    def post(self,request):
-        labour=request.session['login_id']
+class Feedback(View):
+    def get(self, request):
+        return render(request, 'labour/home.html')
+
+    def post(self, request):
+        labour = request.session.get('login_id')
         if not labour:
+            messages.error(request, "You must be logged in to submit feedback.")
             return redirect('log_manager:userslogin')
-        user=LabourDetails.objects.get(user_details=labour)
-        data=FeedbackForm(request.POST)
+        try:
+            user = LabourDetails.objects.get(user_details=labour)
+        except LabourDetails.DoesNotExist:
+            messages.error(request, "no user found.")
+            return redirect('log_manager:labourhome')
+
+        data = FeedbackForm(request.POST)
         if data.is_valid():
-            list=data.save(commit=False)
-            list.sender=user
-            list.save()
+            feedback = data.save(commit=False)
+            feedback.sender = user
+            feedback.save()
             messages.success(request, "Feedback shared successfully!")
             return redirect('log_manager:labourhome')
-        return render(request,'log_manager:labour/feedback.html')
-
+        else:
+            messages.error(request, "Invalid feedback submission.")
+            return render(request, 'labour/home.html', {'form': data})
 #<-------------------add and manage skills ---------------->
 class EditSkill(View):
     def get(self,request):
@@ -43,6 +51,8 @@ class EditSkill(View):
     def post(self,request):
         user_id = request.session['login_id']
         labour = get_object_or_404(LabourDetails, user_details=user_id)
+        if labour is None:
+            return redirect('log_manager:userslogin')
         data=LabourForm(request.POST,instance=labour)
         if data.is_valid():
             data.save()
@@ -128,13 +138,16 @@ class ViewReply(View):
 
 #                      <------------view work request------------->
 class ViewRequest(View):
-    def get(self,request):
-        worker_id=request.session['login_id']
-        if not worker_id:
+    def get(self, request):
+        worker_id = request.session.get('login_id')
+        if worker_id is None:
             return redirect('log_manager:userslogin')
-        worker=LabourDetails.objects.get(user_details=worker_id)
-        work=RequestLabour.objects.filter(labour_id=worker)
-        return render(request,'labour/work_request.html',{'works':work})
+        try:
+            worker = LabourDetails.objects.get(user_details=worker_id)
+            work = RequestLabour.objects.filter(labour_id=worker)
+            return render(request, 'labour/work_request.html', {'works': work})
+        except LabourDetails.DoesNotExist:
+            return redirect('log_manager:userslogin')
 
     #<----------------------change work status------------------->
 class ChangeWorkStatus(View):

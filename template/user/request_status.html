@@ -1,15 +1,34 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<h1>workers status</h1>
-{% for request in state %}
-<p>{{ request.labour_id }}</p>
-<p>{{ request.work_date }}</p>
-<p>{{ request.status }}</p>
-{% endfor %}
-</body>
-</html>
+{% extends 'user/home.html' %}
+{% load static %}
+{% block body %}
+
+<div class="status-container">
+    <h2>Workers Status</h2>
+
+    {% if state %}
+        <table class="status-table">
+            <thead>
+                <tr>
+                    <th>Labour ID</th>
+                    <th>Work Date</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for request in state %}
+                <tr>
+                    <td>{{ request.labour_id }}</td>
+                    <td>{{ request.work_date }}</td>
+                    <td class="{% if request.status == 'Pending' %}pending{% elif request.status == 'Approved' %}approved{% else %}rejected{% endif %}">
+                        {{ request.status }}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p class="no-data">No work requests found.</p>
+    {% endif %}
+</div>
+
+{% endblock %}

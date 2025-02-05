@@ -3,12 +3,12 @@ from django.http import HttpResponse
 from django.views import View
 from .forms import *
 from .models import *
+from public.models import LabourFeedback
 from labour.models import *
 from station.models import*
 from django.contrib import messages
 
 # Create your views here.
-
 # <-----------------station registration---------------->
 class StationRegistration(View):
     def get(self, request):
@@ -38,6 +38,31 @@ class ViewStation(View):
         station=StationDetails.objects.select_related('user_details').all()
         return render(request,'my_admin/view_stations.html',{'view':station})
 
+#<----------------edit station----------------->
+class EditStation(View):
+    def get(self,request,id):
+        data=StationDetails.objects.get(pk=id)
+        return render(request,'my_admin/edit_station.html',{'let':data})
+    def post(self,request,id):
+        data=StationDetails.objects.get(pk=id)
+        items=StationForm(request.POST,instance=data)
+        if items.is_valid():
+            items.save()
+            return redirect('viewstations')
+        return render(request,'my_admin/edit_station.html',{'let':data})
+
+    #<----------delete station---------------->
+
+class DeleteStation(View):
+    def get(self,request,id):
+        return render(request,'my_admin/confirmation.html')
+    def post(self,request,id):
+        data=StationDetails.objects.get(pk=id)
+        data.delete()
+        return redirect('viewstations')
+    
+
+
   #<-------------labour registration ---------------->
 
 class LabourRegistration(View):
@@ -64,7 +89,7 @@ class LabourRegistration(View):
         return render(request,'my_admin/labour_register.html',{'det':data})
 
 
-#    <---------------labours list --------------->
+#          <---------------labours list --------------->
 
 class ViewLabours(View):
     def get(self,request):
@@ -75,10 +100,10 @@ class ViewLabours(View):
 class ListCriminals(View):
     def get(self,request):
         list=CriminalList.objects.all()
-        return render(request,'station/view_criminal.html',{'list':list})
+        return render(request,'my_admin/view_criminal.html',{'list':list})
 
 
-    #<----------view complaints-------------->
+      #<----------view complaints-------------->
 class ComplaintStatus(View):
     def get(self,request):
         details=Complaint.objects.all()
@@ -95,6 +120,7 @@ class SendNotification(View):
         title = request.POST.get('title')
         message = request.POST.get('message')
 
+
         try:
             police_station = StationDetails.objects.get(id=police_station_id)
             Notification.objects.create(
@@ -102,7 +128,7 @@ class SendNotification(View):
                 title=title,
                 message=message
             )
-            return HttpResponse('my_admin:send_notification')
+            return redirect('log_manager:adminhome')
         except StationDetails.DoesNotExist:
             return render(request, 'my_admin/send_notification.html', {
                 'error': 'Invalid police station selected',
@@ -113,3 +139,14 @@ class LabourProblems(View):
     def get(self,request):
         problem=PersonalIssue.objects.all()
         return render(request,'my_admin/view_issue.html',{'problem':problem})
+
+#<-----------------------view feedback--------------------->
+class WorkerFeedback(View):
+    def get(self,request):
+        data=Feedback.objects.all()
+        return render(request,'my_admin/view_feedback.html',{'feed':data})
+#     <-------------------feedback from the user about labour--------------->
+class UserFeedback(View):
+    def get(self,request):
+        data=LabourFeedback.objects.all()
+        return render(request,'my_admin/view_feedback.html',{'back':data})

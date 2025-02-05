@@ -1,20 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-{% for data in complaint %}
-<P>{{data.user}}</P>
-<P>{{data.subject}}</P>
-<p>{{data.complaint}}</p>
-<p>{{data.phone}}</p>
-<p>{{ data.status}}</p>
-<p>{{data.created_at}}</p>
-<p>{{data.updated_at}}</p>
+{% extends 'station/home.html' %}
+{% load static %}
+{% block body %}
 
-<a href="{% url 'change_status' data.id %}">change status</a>
-{% endfor %}
-</body>
-</html>
+<h2>Public Complaints</h2>
+
+{% if complaint %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>User</th>
+                <th>Subject</th>
+                <th>Complaint</th>
+                <th>Phone</th>
+                <th>Status</th>
+                <th>Created At</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for data in complaint %}
+                <tr>
+                    <td>{{ data.user }}</td>
+                    <td>{{ data.subject }}</td>
+                    <td>{{ data.complaint }}</td>
+                    <td>{{ data.phone }}</td>
+                    <td>
+                        <span class="status {% if data.status == 'Resolved' %}resolved{% else %}pending{% endif %}">
+                            {{ data.status }}
+                        </span>
+                    </td>
+                    <td>{{ data.created_at }}</td>
+                    <td>
+                        <a href="{% url 'change_status' data.id %}" class="btn btn-primary">Change Status</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>No public complaints available.</p>
+{% endif %}
+
+{% endblock %}

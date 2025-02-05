@@ -9,4 +9,5 @@ urlpatterns=[
     path('adminpage/',AdminPage.as_view(),name='adminhome'),
     path('stationpage/',StationPage.as_view(),name='stationhome'),
     path('labourpage/',LabourPage.as_view(),name='labourhome'),
+    path('logout/',LogoutUser.as_view(),name='logoutuser')
 ]

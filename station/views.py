@@ -56,7 +56,7 @@ class ViewFeedback(View):
         return render(request,'station/view_feedback.html',{'list':list})
 
     # <--------------users complaints------------------->
-class ViewComplaints(View):
+class PublicComplaints(View):
     def get(self,request):
         complaint=UserComplaint.objects.all()
         return render(request,'station/view_complaint.html',{'complaint':complaint})
@@ -78,16 +78,23 @@ class ComplaintStatus(View):
             item=data.save(commit=False)
             item.station=stations
             item.save()
-            return redirect('view_complaints')
+            return redirect('public_complaints')
         return render(request,'station/changestatus.html')
 
  #<------------view notification------------>
 class ViewNotifications(View):
     def get(self, request):
-        police_station_id = request.session['login_id']
-        station=StationDetails.objects.get(user_details=police_station_id)
-        notifications = Notification.objects.filter(police_station_id=station).order_by('-sent_at')
-        return render(request, 'station/view_notifications.html', {'notifications': notifications})
+        try:
+            police_station_id = request.session.get('login_id')
+            if not police_station_id:
+                return redirect('log_manager:userslogin')
+            station = StationDetails.objects.filter(user_details=police_station_id).first()
+            if not station:
+                return redirect('log_manager:userslogin')
+            notifications = Notification.objects.filter(police_station_id=station).order_by('-sent_at')
+            return render(request, 'station/view_notifications.html', {'notifications': notifications})
+        except:
+            return redirect('log_manager:userslogin')  # Redirect on unexpected error
 
     #<----------------labour complaint view and reply--------------------->
 class ViewComplaints(View):

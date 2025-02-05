@@ -1,26 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<h1>criminal details registration </h1>
-<form method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-    <label>full name:</label>
-    <input type="text" name="fullname">
-    <label>image: </label>
-    <input type="file" name="image">
-    <label>height:</label>
-    <input type="number" name="height">
-    <label>weight:</label>
-    <input type="number" name="weight">
-    <label>incident summary</label>
-    <textarea name="incident_summary"></textarea>
-    <label>offense</label>
-    <input type="text" name="offenses">
-    <input type="submit" value="submit">
-</form>
-</body>
-</html>
+{% extends 'station/home.html' %}
+{% load static %}
+{% block body %}
+    <div class="form-container">
+        <h1 class="form-title">Criminal Details Registration</h1>
+        <form method="POST" enctype="multipart/form-data" class="registration-form">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="fullname">Full Name:</label>
+                <input type="text" id="fullname" name="fullname" required>
+            </div>
+            <div class="form-group">
+                <label for="image">Image:</label>
+                <input type="file" id="image" name="image" accept="image/*" required>
+            </div>
+            <div class="form-group">
+                <label for="height">Height (in cm):</label>
+                <input type="number" id="height" name="height" required>
+            </div>
+            <div class="form-group">
+                <label for="weight">Weight (in kg):</label>
+                <input type="number" id="weight" name="weight" required>
+            </div>
+            <div class="form-group">
+                <label for="incident_summary">Incident Summary:</label>
+                <textarea id="incident_summary" name="incident_summary" rows="4" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="offenses">Offenses:</label>
+                <input type="text" id="offenses" name="offenses" required>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Submit" class="submit-btn">
+            </div>
+        </form>
+    </div>
+{% endblock %}

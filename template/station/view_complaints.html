@@ -1,34 +1,34 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<h2>Un-replied Complaints</h2>
-  {% if complaints %}
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Sender</th>
-          <th>Complaint</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for complaint in complaints %}
-          <tr>
-            <td>{{ complaint.sender.username }}</td>
-            <td>{{ complaint.complaint_text }}</td>
-            <td>
-              <a href="{% url 'reply_complaint' complaint.id %}" class="btn btn-primary">Reply</a>
-            </td>
-          </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  {% else %}
-    <p>No complaints to view.</p>
-  {% endif %}
-</body>
-</html>
+{% extends 'station/home.html' %}
+{% load static %}
+{% block body %}
+
+<div class="complaint-container">
+    <h2 class="complaint-title">Un-replied Complaints</h2>
+
+    {% if complaints %}
+        <table class="complaint-table">
+            <thead>
+                <tr>
+                    <th>Sender</th>
+                    <th>Complaint</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for complaint in complaints %}
+                    <tr>
+                        <td>{{ complaint.sender.username }}</td>
+                        <td>{{ complaint.complaint_text }}</td>
+                        <td>
+                            <a href="{% url 'reply_complaint' complaint.id %}" class="complaint-btn">Reply</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p class="no-complaints">No complaints to view.</p>
+    {% endif %}
+</div>
+
+{% endblock %}

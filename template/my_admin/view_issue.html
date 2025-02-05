@@ -1,17 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-{% for issue in problem %}
-<label>labour name: </label>
-<p>{{ issue.labourer }}</p>
-<label>problem: </label>
-<p>{{ issue.description }}</p>
-<label>Date: </label>
-<p>{{ issue.created_at }}</p>
-{% endfor %}
-</body>
-</html>
+{% extends 'my_admin/home.html' %}
+{% block body %}
+    <div class="issue-container">
+        <h3 class="issue-title">Labours Issue</h3>
+
+        {% if not problem %}
+            <p class="no-issue-message">No issues in the list.</p>
+        {% else %}
+            <div class="issue-list">
+                {% for issue in problem %}
+                    <div class="issue-card">
+                        <div class="issue-header">
+                            <span class="issue-label">Labour Name:</span>
+                            <span class="issue-value">{{ issue.labourer }}</span>
+                        </div>
+                        <div class="issue-content">
+                            <span class="issue-label">Problem:</span>
+                            <p class="issue-value">{{ issue.description }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

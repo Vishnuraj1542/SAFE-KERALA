@@ -1,28 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Send Notification</title>
-</head>
-<body>
-    <h1>Send Notification</h1>
-    <form method="POST">
-        {% csrf_token %}
-        <label for="police_station">Select Police Station:</label>
-        <select id="police_station" name="police_station" required>
-            {% for station in police_stations %}
-                <option value="{{ station.id }}">{{ station.station_name }}</option>
-            {% endfor %}
-        </select>
-        <br><br>
-        <label for="title">Title:</label>
-        <input type="text" id="title" name="title" required>
-        <br><br>
-        <label for="message">Message:</label>
-        <textarea id="message" name="message" required></textarea>
-        <br><br>
-        <button type="submit">Send Notification</button>
-    </form>
-</body>
-</html>
+{% extends 'my_admin/home.html' %}
+{% block body %}
+    <div class="form-container">
+        <h1 class="form-title">Send Notification</h1>
+        <form method="POST" class="notification-form">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="police_station">Select Police Station:</label>
+                <select id="police_station" name="police_station" class="form-control" required>
+                    {% for station in police_stations %}
+                        <option value="{{ station.id }}">{{ station.station_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="title">Title:</label>
+                <input type="text" id="title" name="title" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" class="form-control" rows="5" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="submit-btn">Send Notification</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}

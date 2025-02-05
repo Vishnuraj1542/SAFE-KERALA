@@ -1,28 +1,45 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'user/home.html' %}
+{% load static %}
+{% block body %}
 
-<img src="{{ lab.photo.url }}" height="500px" width="500px">
-<p>Labour id :{{ lab.id }}</p>
-<p>{{ lab.name }}</p>
-<P>{{ lab.user_details.username }}</P>
-<p>{{ lab.phone }}</p>
+<div class="labour-container">
+    <div class="labour-profile">
+        <img src="{{ lab.photo.url }}" alt="Labour Photo">
+        <div class="labour-details">
+            <h2>{{ lab.name }}</h2>
+            <p><strong>Labour ID:</strong> {{ lab.id }}</p>
+            <p><strong>Username:</strong> {{ lab.user_details.username }}</p>
+            <p><strong>Phone:</strong> {{ lab.phone }}</p>
+        </div>
+    </div>
 
-<form method="POST">
-    {% csrf_token %}
-    <label>Title</label>
-    <input type="text" name="title">
-    <label>workdate:</label>
-    <input type="date" name="work_date">
-    <label>job details</label>
-    <textarea name="work_description" placeholder="enter work details"></textarea>
-    <label>phone no:</label>
-    <input type="number" name="contact">
-    <input type="submit" value="submit">
-</form>
-</body>
-</html>
+    <div class="job-request-form">
+        <h3>Request Work</h3>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input type="text" id="title" name="title" required>
+            </div>
+
+            <div class="form-group">
+                <label for="work_date">Work Date</label>
+                <input type="date" id="work_date" name="work_date" required>
+            </div>
+
+            <div class="form-group">
+                <label for="work_description">Job Details</label>
+                <textarea id="work_description" name="work_description" placeholder="Enter work details" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="contact">Phone No</label>
+                <input type="number" id="contact" name="contact" required>
+            </div>
+
+            <button type="submit" class="submit-btn">Submit</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

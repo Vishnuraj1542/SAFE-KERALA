@@ -1,18 +1,47 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="{% static 'css/admin_home.css' %}">
+    <!-- Add Google Fonts for a modern look -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
-<h1>welcome to head of department page like admin</h1>
-<a href="{% url 'stationregister' %}">station registration</a>
-<a href="{% url 'labourregister' %}">labour registration</a>
-<a href="{% url 'viewstations' %}">view stations</a>
-<a href="{% url 'viewlabours' %}">view labours</a>
-<a href="{% url 'criminallist'%}">view criminal list</a>
-<a href="{% url 'send_notification' %}">send notification</a>
-<a href="{% url 'labour_problems' %}">labour problems</a>
+    <!-- Sidebar -->
+    <div class="admin-sidebar">
+        <div class="sidebar-header">
+            <h3>Admin Panel</h3>
+        </div>
+        <ul class="sidebar-nav">
+            <li class="nav-item dropdown">
+                <a href="#" class="nav-link dropbtn">Registration</a>
+                <ul class="dropdown-menu">
+                    <li><a href="{% url 'stationregister' %}">Station Registration</a></li>
+                    <li><a href="{% url 'labourregister' %}">Labour Registration</a></li>
+                </ul>
+            </li>
+            <li class="nav-item"><a href="{% url 'viewstations' %}" class="nav-link">View Stations</a></li>
+            <li class="nav-item"><a href="{% url 'viewlabours' %}" class="nav-link">View Labours</a></li>
+            <li class="nav-item"><a href="{% url 'criminallist' %}" class="nav-link">Criminal List</a></li>
+            <li class="nav-item"><a href="{% url 'send_notification' %}" class="nav-link">Send Notification</a></li>
+            <li class="nav-item"><a href="{% url 'labour_problems' %}" class="nav-link">Labour Problems</a></li>
+            <li class="nav-item dropdown">
+                <a href="#" class="nav-link dropbtn">Feedback</a>
+                <ul class="dropdown-menu">
+                    <li><a href="{% url 'labour_feed' %}">Labour Feedback</a></li>
+                    <li><a href="{% url 'user_feed' %}">User Feedback</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
 
+    <!-- Main Content -->
+    <div class="admin-container">
+        {% block body %}
+        {% endblock %}
+    </div>
 </body>
 </html>

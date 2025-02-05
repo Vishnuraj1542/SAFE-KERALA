@@ -1,15 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<form method="POST">
-    {% csrf_token %}
-    <label>feedback</label>
-    <textarea name="feedback"></textarea>
-    <input type="submit" value="submit">
-</form>
-</body>
-</html>
+{% extends 'user/home.html' %}
+{% load static %}
+{% block body %}
+<div class="feedback-form">
+    <h2>Leave Your Feedback</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="feedback">Your Feedback:</label>
+            <textarea name="feedback" id="feedback" rows="5" placeholder="Enter your feedback here..." required></textarea>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Submit" class="btn-submit">
+        </div>
+    </form>
+</div>
+{% endblock %}

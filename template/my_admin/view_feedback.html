@@ -1,0 +1,39 @@
+{% extends 'my_admin/home.html' %}
+{% block body %}
+    <div class="feedback-container">
+        <!-- Labour Feedback Section -->
+        {% if feed %}
+            <h2 class="section-title">Labour Feedback</h2>
+            <div class="feedback-list">
+                {% for back in feed %}
+                    <div class="feedback-card labour-feedback">
+                        <div class="feedback-header">
+                            <span class="feedback-sender">Labour: {{ back.sender }}</span>
+                        </div>
+                        <div class="feedback-content">
+                            <p>{{ back.feedback }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <!-- User Feedback Section -->
+        {% if back %}
+            <h2 class="section-title">User Feedback</h2>
+            <div class="feedback-list">
+                {% for data in back %}
+                    <div class="feedback-card user-feedback">
+                        <div class="feedback-header">
+                            <span class="feedback-sender">User: {{ data.user }}</span>
+                            <span class="feedback-about">About Worker: {{ data.labour }}</span>
+                        </div>
+                        <div class="feedback-content">
+                            <p>{{ data.feedback }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
