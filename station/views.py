@@ -19,7 +19,7 @@ class AddCriminals(View):
         CriminalForm()
         return render(request,'station/add_criminal.html')
     def post(self,request):
-        user_id=request.session['login_id']
+        user_id=request.user.id
         name=StationDetails.objects.get(user_details=user_id)
         data=CriminalForm(request.POST,request.FILES)
         if data.is_valid():
@@ -67,7 +67,7 @@ class ComplaintStatus(View):
         complaint=UserComplaint.objects.get(pk=id)
         return render(request,'station/changestatus.html',{'complan':complaint})
     def post(self,request,id):
-        user_id = request.session['login_id']
+        user_id = request.user.id
         if not user_id:
             messages.error("Please login for make changes")
             return redirect('log_manager:userslogin')
@@ -85,7 +85,7 @@ class ComplaintStatus(View):
 class ViewNotifications(View):
     def get(self, request):
         try:
-            police_station_id = request.session.get('login_id')
+            police_station_id = request.user.id
             if not police_station_id:
                 return redirect('log_manager:userslogin')
             station = StationDetails.objects.filter(user_details=police_station_id).first()

@@ -1,30 +1,36 @@
-{% extends 'user/home.html' %}
 {% load static %}
-{% block body %}
-
-<div class="complaint-container">
-    <h2>send complaint</h2>
-
-    <form method="POST" class="complaint-form">
-        {% csrf_token %}
-
-        <div class="form-group">
-            <label for="subject">Subject</label>
-            <input type="text" id="subject" name="subject" value="{{ comp.subject }}" required>
-        </div>
-
-        <div class="form-group">
-            <label for="complaint">Complaint</label>
-            <textarea id="complaint" name="complaint" placeholder="Enter your complaint here" required>{{ comp.complaint }}</textarea>
-        </div>
-
-        <div class="form-group">
-            <label for="phone">Contact No</label>
-            <input type="number" id="phone" name="phone" required>
-        </div>
-
-        <button type="submit" class="submit-btn">Submit</button>
-    </form>
-</div>
-
-{% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>send complaint</title>
+    <link rel="stylesheet" href="{% static 'css/user_home.css' %}">
+</head>
+<body>
+    <div class="complaint-container">
+        <h2>send complaint</h2>
+    <a href="{% url 'log_manager:userhome' %}" class="back">back</a>
+        <form method="POST" class="complaint-form">
+            {% csrf_token %}
+    
+            <div class="form-group">
+                <label for="subject">Subject</label>
+                <input type="text" id="subject" name="subject" value="{{ comp.subject }}" required>
+            </div>
+    
+            <div class="form-group">
+                <label for="complaint">Complaint</label>
+                <textarea id="complaint" name="complaint" placeholder="Enter your complaint here" required>{{ comp.complaint }}</textarea>
+            </div>
+    
+            <div class="form-group">
+                <label for="phone">Contact No</label>
+                <input type="number" id="phone" name="phone" required>
+            </div>
+    
+            <button type="submit" class="submit-btn">Submit</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,20 @@
+{% extends 'labour/home.html' %}
+{% load static %}
+
+{% block body %}
+<div class="chat-users-container">
+    <h2 class="chat-title">Chat Users</h2>
+    
+    {% if users %}
+    <ul class="chat-users-list">
+        {% for user in users %}
+        <li class="chat-user-item">
+            <a href="{% url 'user_chat' user.id %}" class="chat-user-link">{{ user.username }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p class="no-users-message">No users have messaged you yet.</p>
+    {% endif %}
+</div>
+{% endblock %}

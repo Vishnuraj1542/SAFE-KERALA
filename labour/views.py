@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect,get_object_or_404
 from django.http import HttpResponse
 from django.contrib import messages
 from django.views import View
+from django.db.models import Q
 
 from .models import *
 from .forms import *
@@ -9,7 +10,7 @@ from my_admin.models import*
 from log_manager import*
 from my_admin.forms import *
 from log_manager import *
-from public.models import RequestLabour
+from public.models import RequestLabour,Message
 from public.forms import WorkStatus
 
 
@@ -22,7 +23,7 @@ class Feedback(View):
         return render(request, 'labour/home.html')
 
     def post(self, request):
-        labour = request.session.get('login_id')
+        labour = request.user
         if not labour:
             messages.error(request, "You must be logged in to submit feedback.")
             return redirect('log_manager:userslogin')
@@ -45,17 +46,19 @@ class Feedback(View):
 #<-------------------add and manage skills ---------------->
 class EditSkill(View):
     def get(self,request):
-        user_id=request.session['login_id']
+        user_id=request.user
         labour=LabourDetails.objects.get(user_details=user_id)
         return render(request,'labour/manage_skill.html',{'labour':labour})
     def post(self,request):
-        user_id = request.session['login_id']
+        user_id = request.user
         labour = get_object_or_404(LabourDetails, user_details=user_id)
         if labour is None:
             return redirect('log_manager:userslogin')
-        data=LabourForm(request.POST,instance=labour)
+        data=SkillForm(request.POST,instance=labour)
         if data.is_valid():
             data.save()
+            return HttpResponse(
+                '<script>alert("Skill Updated Sucessfully!"); window.location.href="/labourpage/";</script>')
             return redirect('log_manager:labourhome')
         return render(request,'labour/manage_skill.html',{'labour':labour})
 
@@ -64,21 +67,21 @@ class Personal(View):
     def get(self,request):
         return render(request,'labour/personal_issue.html')
     def post(self,request):
-        labour=request.session['login_id']
-        print('labourid------->',labour)
+        labour=request.user
         log_id=LabourDetails.objects.get(user_details=labour)
         data=PersonalIssueForm(request.POST)
         if data.is_valid():
             log=data.save(commit=False)
             log.labourer=log_id
             log.save()
-            return redirect('log_manager:labourhome')
+            return HttpResponse(
+                '<script>alert("Issue Added Sucessfully!"); window.location.href="/labour/viewissue/";</script>')
         return render(request,'labour/personal_issue.html')
 
     #<---------------view issues---------------------->
 class ViewIssue(View):
     def get(self,request):
-        problem=PersonalIssue.objects.all()
+        problem=PersonalIssue.objects.order_by('-created_at').all()
         return render(request,'labour/view_issue.html',{'problem':problem})
 
 
@@ -111,22 +114,23 @@ class SubmitComplaint(View):
         form = ComplaintForm()
         return render(request, 'labour/submit_complaint.html', {'form': form})
     def post(self, request):
-        user_id = request.session['login_id']
-        if 'login_id' not in request.session:
-            return redirect('log_manger:userslogin')
-        user = get_object_or_404(LoginDetails, id=user_id)
-        form = ComplaintForm(request.POST)
-        if form.is_valid():
-            complaint = form.save(commit=False)
+        try:
+            user = get_object_or_404(LoginDetails, id=request.user.id)
+        except LoginDetails.DoesNotExist:
+            messages.error(request, 'Failed to retrieve user details.')
+            return redirect('log_manager:userslogin')
+        comp = ComplaintForm(request.POST)
+        if comp.is_valid():
+            complaint = comp.save(commit=False)
             complaint.sender = user
             complaint.save()
             return HttpResponse(
                 '<script>alert("Complaint submitted successfully!"); window.location.href="/labourpage/";</script>')
-        return render(request, 'labour/submit_complaint.html', )
+        return render(request, 'labour/submit_complaint.html',{'comp': comp} )
                      #-----viewreply------->
 class ViewReply(View):
     def get(self,request):
-        id=request.session.get('login_id')
+        id=request.user
         if not id:
             return redirect('log_manager:userslogin')
         content=LabourComplaint.objects.filter(sender_id=id)
@@ -139,7 +143,7 @@ class ViewReply(View):
 #                      <------------view work request------------->
 class ViewRequest(View):
     def get(self, request):
-        worker_id = request.session.get('login_id')
+        worker_id = request.user
         if worker_id is None:
             return redirect('log_manager:userslogin')
         try:
@@ -162,4 +166,46 @@ class ChangeWorkStatus(View):
             return redirect('view_request')
         return render(request,'labour/change_status.html',{'work':work_request})
 
+    #<------messaged peoples list --------------->
+class UsersListChat(View):
+    def get(self, request):
+        labour_id = request.user.id
 
+        if not labour_id:
+            return redirect('Manager:login')
+        user_ids = Message.objects.filter(
+            Q(sender_id=labour_id) | Q(receiver_id=labour_id)
+        ).values_list('sender_id', 'receiver_id')
+        unique_user_ids = set()
+        for sender, receiver in user_ids:
+            if sender != labour_id:
+                unique_user_ids.add(sender)
+            if receiver != labour_id:
+                unique_user_ids.add(receiver)
+        users = LoginDetails.objects.filter(id__in=unique_user_ids)
+
+        return render(request, 'labour/users_list_chat.html', {'users': users})
+
+
+#                  <-------------chat with users------------------>
+class ChatWithUser(View):
+    def get(self, request, user_id):
+        labour_id = request.user
+        if not labour_id:
+            return redirect('log_manager:userslogin')
+
+        messages = Message.objects.filter(
+            sender_id=labour_id, receiver_id=user_id
+        ) | Message.objects.filter(
+            sender_id=user_id, receiver_id=labour_id
+        ).order_by('timestamp')
+
+        return render(request, 'labour/user_chat.html', {'messages': messages, 'user_id': user_id})
+    def post(self, request, user_id):
+        labour_id = request.user.id
+        if not labour_id:
+            return redirect('log_manager:userslogin')
+        message_text = request.POST.get('message')
+        if message_text:
+            Message.objects.create(sender_id=labour_id, receiver_id=user_id, message=message_text)
+        return redirect('user_chat', user_id=user_id)

@@ -8,5 +8,7 @@ urlpatterns=[
     path('viewlabour/', ViewLabour.as_view(), name='viewlabour'),
     path('sendrequest/<int:id>/',RequestLabours.as_view(),name='request_worker'),
     path('requeststatus/',RequestStatus.as_view(),name='request_status'),
-    path('labourfeedback/<int:id>/',FeedBack.as_view(),name='labour_feedback')
+    path('labourfeedback/<int:id>/',FeedBack.as_view(),name='labour_feedback'),
+    path('labour/<int:labour_id>/chat/', ChatwithWorker.as_view(), name='workerchat'),
+
 ]

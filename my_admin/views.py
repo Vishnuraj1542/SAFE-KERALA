@@ -18,6 +18,10 @@ class StationRegistration(View):
     def post(self, request):
         form = StationForm(request.POST, request.FILES)
         if form.is_valid():
+            username = request.POST.get('username')
+            if LoginDetails.objects.filter(username=username).exists():
+                messages.error(request,'username already exist', extra_tags='labour')
+                return render(request, 'my_admin/station_register.html')
             item = LoginDetails.objects.create_user(
                 username=request.POST['username'],
                 email=request.POST['email'],
@@ -28,8 +32,10 @@ class StationRegistration(View):
             station = form.save(commit=False)
             station.user_details = item
             station.save()
+            messages.success(request,'station added sucessfully',extra_tags='labour')
             return redirect('log_manager:stationhome')
         else:
+            messages.error(request,'an error occured please try again',extra_tags=labour)
             return render(request, 'my_admin/station_register.html', {'form': form})
 
                     #<----------viewstations---------->
@@ -74,7 +80,7 @@ class LabourRegistration(View):
             username=request.POST.get('username')
             if LoginDetails.objects.filter(username=username).exists():
                 messages.error(request, 'Username already exists. Please choose a different one.')
-                return render('my_admin/labour_register.html',{'msg':messages})
+                return render(request,'my_admin/labour_register.html')
             item = LoginDetails.objects.create_user(
                 username=request.POST['username'],
                 email=request.POST['email'],
@@ -85,7 +91,8 @@ class LabourRegistration(View):
             labour=data.save(commit=False)
             labour.user_details=item
             labour.save()
-            return redirect('log_manager:labourhome')
+            messages.success(request,'labour added sucessfully')
+            return redirect('log_manager:adminhome')
         return render(request,'my_admin/labour_register.html',{'det':data})
 
 
@@ -119,8 +126,6 @@ class SendNotification(View):
         police_station_id = request.POST.get('police_station')
         title = request.POST.get('title')
         message = request.POST.get('message')
-
-
         try:
             police_station = StationDetails.objects.get(id=police_station_id)
             Notification.objects.create(
@@ -128,6 +133,7 @@ class SendNotification(View):
                 title=title,
                 message=message
             )
+            messages.success(request,'notification sent sucessfully',extra_tags='labour')
             return redirect('log_manager:adminhome')
         except StationDetails.DoesNotExist:
             return render(request, 'my_admin/send_notification.html', {

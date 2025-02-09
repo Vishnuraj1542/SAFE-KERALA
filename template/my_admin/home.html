@@ -6,11 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel</title>
     <link rel="stylesheet" href="{% static 'css/admin_home.css' %}">
-    <!-- Add Google Fonts for a modern look -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Sidebar -->
     <div class="admin-sidebar">
         <div class="sidebar-header">
             <h3>Admin Panel</h3>
@@ -41,6 +39,13 @@
     <!-- Main Content -->
     <div class="admin-container">
         {% block body %}
+        {% for message in messages %}
+    {% if 'labour' in message.tags %}
+        <div class="alert {% if message.tags == 'error' %}alert-danger{% else %}alert-success{% endif %}">
+            {{ message }}
+        </div>
+    {% endif %}
+{% endfor %}
         {% endblock %}
     </div>
 </body>

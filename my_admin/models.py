@@ -35,6 +35,8 @@ class LabourDetails(models.Model):
     ration_card = models.ImageField(null=True, blank=True, upload_to='labour_gallery')
     updated_at = models.DateTimeField(auto_now_add=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    def __str__(self):
+        return self.name
 
 
 

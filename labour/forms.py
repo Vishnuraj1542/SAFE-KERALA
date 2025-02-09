@@ -1,5 +1,6 @@
 from django import forms
 from .models import *
+from my_admin.models import LabourDetails
 
 class FeedbackForm(forms.ModelForm):
     class Meta():
@@ -18,3 +19,7 @@ class ComplaintForm(forms.ModelForm):
         widgets = {
             'complaint_text': forms.Textarea(attrs={'rows': 4, 'cols': 40}),
         }
+class SkillForm(forms.ModelForm):
+    class Meta():
+        model=LabourDetails
+        fields=['skills']

@@ -7,30 +7,29 @@
     <title>Safe Kerala - Migrated Workers Portal</title>
     <link rel="stylesheet" href="{% static 'css/user_home.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
         <nav class="navbar">
             <h1>Safe Kerala</h1>
             <ul class="nav-links">
-                <a href="{% url 'complaint' %}">File a Complaint</a>
-                <a href="{% url 'viewlabour' %}">View Labourers</a>
+                <a href="{% url 'complaint' %}">SendComplaint</a>
+                <a href="{% url 'viewlabour' %}">View Workers</a>
                 <a href="{% url 'request_status' %}">Request Status</a>
+                {% if not request.user.is_authenticated or request.user.user_type != "USER" %}
+                <a href="{% url 'log_manager:userslogin' %}">Login</a>
+                {% else %}
+                <a href="{% url 'log_manager:logoutuser' %}">Logout</a>
+                {% endif %}
 
+        <form method="GET" action="{% url 'search_labour' %}">
+                <input type="text" id="skill" name="skill" placeholder="Enter Skill">
+                <button type="submit" class="btn">Search</button>
+        </form>
             </ul>
         </nav>
     </header>
-
-
-    <div class="container">
-        <form method="GET" action="{% url 'search_labour' %}">
-            <div class="form-group">
-                <input type="text" id="skill" name="skill" placeholder="Enter Skill">
-                <button type="submit" class="btn">Search</button>
-            </div>
-        </form>
-    </div>
-
     {% block body %}
     <section class="hero">
         <div class="hero-content">
@@ -38,9 +37,6 @@
                 <h2>Welcome to Safe Kerala</h2>
                 <p>Your trusted platform for finding verified and skilled migrant workers. Ensure safety, reliability, and efficiency in hiring with our centralized system.</p>
                 <a href="{% url 'log_manager:userslogin' %}" class="cta-button">Get Started</a>
-            </div>
-            <div class="hero-image">
-                <img src="{% static 'images/factory_work.jpg' %}" alt="Safe Kerala">
             </div>
         </div>
     </section>

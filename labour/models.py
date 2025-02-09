@@ -7,9 +7,8 @@ class Feedback(models.Model):
     sender=models.ForeignKey(LabourDetails,null=True,blank=True,on_delete=models.CASCADE)
     feedback=models.TextField(null=True,blank=True)
     created_at=models.DateTimeField(auto_now_add=True)
-
-
-
+    def __str__(self):
+        return self.sender.name
 
 class PersonalIssue(models.Model):
     labourer = models.ForeignKey(LabourDetails, on_delete=models.CASCADE,null=True,blank=True)
@@ -17,6 +16,8 @@ class PersonalIssue(models.Model):
     description = models.TextField(null=True,blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=True)
+    def __str__(self):
+        return self.labourer.name
 
 class LabourComplaint(models.Model):
     sender = models.ForeignKey(LoginDetails, on_delete=models.CASCADE, blank=True, null=True)

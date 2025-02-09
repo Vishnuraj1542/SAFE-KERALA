@@ -1,7 +1,18 @@
-{% extends 'user/home.html' %}
 {% load static %}
-{% block body %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/user_home.css' %}">
+</head>
+<body>
+    
 {% for lab in labour %}
+{% if not lab %}
+<P>no labours in the list</P>
+{% else %}
 <div class="labour-profile">
     <img src="{{ lab.photo.url }}" height="150px" width="150px">
     <div>
@@ -11,8 +22,10 @@
         <p>{{ lab.phone }}</p>
         <a href="{% url 'request_worker' lab.id %}">Request</a>
         <a href="{% url 'labour_feedback' lab.id %}">Feedback</a>
+        <a href="{% url 'workerchat' lab.id %}">chat </a>
     </div>
 </div>
+{% endif %}
 {% endfor %}
 
 <div class="results">
@@ -30,6 +43,7 @@
                     <p>{{ person.phone }}</p>
                     <a href="{% url 'request_worker' person.id %}">Request</a>
                     <a href="{% url 'labour_feedback' person.id %}">Feedback</a>
+                    <a href="{% url 'workerchat' person.id %}">chat </a>
                 </div>
             </div>
         {% endfor %}
@@ -39,4 +53,6 @@
         {% endif %}
     {% endif %}
 </div>
-{% endblock %}
+
+</body>
+</html>

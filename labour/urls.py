@@ -12,5 +12,7 @@ urlpatterns=[
     path('complaintreply/',ViewReply.as_view(),name='complaint_reply'),
     path('viewrequests/',ViewRequest.as_view(),name='view_request'),
     path('workstatus/<int:id>/',ChangeWorkStatus.as_view(),name='work_status'),
+    path('user/chatlist/',UsersListChat.as_view(), name='users_chat_list'),
+    path('user/<int:user_id>/user_id/', ChatWithUser.as_view(), name='user_chat'),
 
 ]

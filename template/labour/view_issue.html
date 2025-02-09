@@ -22,5 +22,11 @@
     {% else %}
         <p class="no-issue">No issues to view.</p>
     {% endif %}
+    <div class="add">
+        <a href="{% url 'personal_issue' %}">
+            <i class="fas fa-plus"></i>
+        </a>
+    </div>
+    
 </div>
 {% endblock %}
